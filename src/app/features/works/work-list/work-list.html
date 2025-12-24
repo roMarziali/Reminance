@@ -1,27 +1,80 @@
-<table>
-      <tr>
-        <th>Titre</th>
-        <th>Licence</th>
-        <th>Type</th>
-        <th>Année</th>
-        <th>Genre</th>
-        <th>Artistes</th>
-        <th>Dernière session</th>
-        <th>Appréciation</th>
-      </tr>
-      @for(work of works; track work.id){
-      <tr>
-        <td>{{work.title}}</td>
-        <td>{{displayFullArray(work.licenses)}}</td>
-        <td>{{work.type}}</td>
-        <td>{{work.releaseYear}}</td>
-        <td>{{displayFullArray(work.genres)}}</td>
-        <td>{{displayFullArray(work.artists)}}</td>
-        <td>{{displaySessionDates(work)}}</td>
-        <td>{{displayMoods(work)}}</td>
-      </tr>
-      }@empty {
-      Il est temps de commencer à créer vos souvenirs !
-      }
+<mat-card appearance="outlined">
+  <mat-card-header>
+    <mat-card-title>Souvenirs</mat-card-title>
+    <mat-card-subtitle>Tout ce dont je souhaite garder une trace</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Titre
+        </th>
+        <td mat-cell *matCellDef="let work"> {{work.title}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="licenses">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Licence
+        </th>
+        <td mat-cell *matCellDef="let work"> {{displayFullArray(work.licenses)}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Type
+        </th>
+        <td mat-cell *matCellDef="let work">{{work.type}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="releaseYear">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Date de sortie
+        </th>
+        <td mat-cell *matCellDef="let work"> {{work.releaseYear}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="genre">
+        <th mat-header-cell *matHeaderCellDef>
+          Genres
+        </th>
+        <td mat-cell *matCellDef="let work"> {{displayFullArray(work.genres)}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="artists">
+        <th mat-header-cell *matHeaderCellDef>
+          Artistes
+        </th>
+        <td mat-cell *matCellDef="let work"> {{displayFullArray(work.artists)}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="lastSessionDate">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Dernière session
+        </th>
+        <td mat-cell *matCellDef="let work"> {{work.lastSessionDate}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="moods">
+        <th mat-header-cell *matHeaderCellDef>
+          Appréciation
+        </th>
+        <td mat-cell *matCellDef="let work"> {{displayMoods(work)}} </td>
+      </ng-container>
+
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
     </table>
+
+    Il est temps de commencer à créer vos souvenirs !
+
+  </mat-card-content>
+  <mat-card-actions>
+    <button matButton>Ajouter</button>
+  </mat-card-actions>
+</mat-card>

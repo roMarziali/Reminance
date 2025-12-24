@@ -1,17 +1,18 @@
 import { SessionMedia } from "./session-media.model"
-
-export interface Work{
-  id : number,
-  title : string,
-  titleAlias? : string[],
-  type : string,
+import { SessionDate } from "./session-date.type"
+export interface Work {
+  id: number,
+  title: string,
+  titleAlias?: string[],
+  type: string,
 
   licenses: string[],
-  artists : string[],
+  artists: string[],
   publishers: string[],
   genres: string[],
 
-  releaseYear?:number,
+  releaseYear?: number,
+  lastSessionDate?: SessionDate,
 
   sessions: SessionMedia[]
 

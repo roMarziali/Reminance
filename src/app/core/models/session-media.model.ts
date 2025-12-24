@@ -1,13 +1,9 @@
+import { SessionDate } from "./session-date.type"
 export interface SessionMedia {
-  startDate: SessionDate,
-  endDate: SessionDate,
+  date: SessionDate,
   moods: string[],
   comment: string,
   modalities?: string,
-  ended? : string
+  ended?: string
 
 }
-
-export type SessionDate = | `${number}`
-  | `${number}-${number}`
-  | `${number}-${number}-${number}`;
