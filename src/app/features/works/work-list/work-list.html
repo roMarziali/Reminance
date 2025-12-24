@@ -49,6 +49,13 @@
         <td mat-cell *matCellDef="let work"> {{displayFullArray(work.artists)}} </td>
       </ng-container>
 
+       <ng-container matColumnDef="publishers">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          Artistes
+        </th>
+        <td mat-cell *matCellDef="let work"> {{displayFullArray(work.publishers)}} </td>
+      </ng-container>
+
       <ng-container matColumnDef="lastSessionDate">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
           Dernière session
@@ -78,6 +85,6 @@
 
   </mat-card-content>
   <mat-card-actions>
-    <button matButton>Ajouter</button>
+    <button matButton="outlined">Ajouter</button>
   </mat-card-actions>
 </mat-card>

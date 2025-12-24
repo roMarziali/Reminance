@@ -1,8 +1,8 @@
-import { AfterViewInit, Component, ViewChild, inject } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { WorkSummary } from '../../../core/models/work-summary';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { MatSort, Sort, MatSortModule } from '@angular/material/sort';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
 
@@ -20,7 +20,7 @@ export class WorkList {
       title: "Final Fantasy VII",
       type: "Jeu vidéo",
       licenses: ["Final Fantasy", "Mythic Quest"],
-      artists: ["Tetsuya Nomura", "Yoshitaka Amano", "Hironobu Sakaguchi", "Nobuo Ueematsu", "Yoshinori Kitase"],
+      artists: ["Tetsuya Nomura", "Yoshitaka Amano", "Hironobu Sakaguchi", "Nobuo Uematsu", "Yoshinori Kitase"],
       publishers: ["SquareEnix", "Squaresoft"],
       genres: ["JRPG", "Science-fiction"],
       releaseYear: 1997,
@@ -43,7 +43,7 @@ export class WorkList {
       type: "Jeu vidéo",
       licenses: ["Final Fantasy"],
       genres: ["JRPG", "Science-fiction"],
-      artists: ["Tetsuya Nomura", "Yoshitaka Amano", "Hironobu Sakaguchi", "Nobuo Ueematsu", "Yoshinori Kitase"],
+      artists: ["Shigesato Itoi", "Yoshitaka Amano", "Hironobu Sakaguchi", "Nobuo Uematsu", "Yoshinori Kitase"],
       publishers: ["SquareEnix", "Squaresoft"],
       releaseYear: 1998,
       lastSessionDate: "2022",
@@ -51,7 +51,7 @@ export class WorkList {
     }
   ]
 
-  displayedColumns: string[] = ['title', 'licenses', 'type', 'releaseYear', 'genres', 'artists', 'lastSessionDate', 'moods'];
+  displayedColumns: string[] = ['title', 'licenses', 'type', 'releaseYear', 'genres', 'artists', 'publishers', 'lastSessionDate', 'moods'];
   dataSource = new MatTableDataSource(this.works);
 
   @ViewChild(MatSort) sort: MatSort | undefined;
