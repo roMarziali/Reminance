@@ -43,3 +43,9 @@ body {
     container-text-color: var(--mat-sys-primary),
   ));
 }
+
+:root {
+  @include mat.table-overrides((
+    header-headline-color: var(--mat-sys-tertiary),
+  ));
+}

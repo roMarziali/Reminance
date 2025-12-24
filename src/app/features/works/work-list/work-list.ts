@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ViewChild, inject } from '@angular/core';
-import { Work } from '../../../core/models/work.model';
+import { WorkSummary } from '../../../core/models/work-summary';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSort, Sort, MatSortModule } from '@angular/material/sort';
@@ -14,23 +14,21 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 })
 export class WorkList {
 
-  works: Work[] = [
+  works: WorkSummary[] = [
     {
       id: 1,
       title: "Final Fantasy VII",
-      titleAlias: ["Finaru Fantasy 7", "Méga super jeu"],
       type: "Jeu vidéo",
-      licenses: ["Final Fantasy"],
+      licenses: ["Final Fantasy", "Mythic Quest"],
       artists: ["Tetsuya Nomura", "Yoshitaka Amano", "Hironobu Sakaguchi", "Nobuo Ueematsu", "Yoshinori Kitase"],
       publishers: ["SquareEnix", "Squaresoft"],
       genres: ["JRPG", "Science-fiction"],
       releaseYear: 1997,
-      sessions: []
+      moods: ["Génial", "Emouvant !"]
     },
     {
       id: 3,
       title: "Kingdom Hearts",
-      titleAlias: ["Finaru Fantasy 7", "Méga super jeu"],
       type: "Livre",
       licenses: ["Kingdom Hearts"],
       artists: ["Tetsuya Nomura", "Yoko Shimomura"],
@@ -38,18 +36,10 @@ export class WorkList {
       genres: ["JRPG", "Contes de fées"],
       releaseYear: 2002,
       lastSessionDate: "2024-12-09",
-      sessions: [{
-        date: "2024",
-        moods: ["Chef-d'oeuvre", "Magnifique"],
-        comment: "Je collectionne les porte-clés !",
-        modalities: "Version Steam, Mod traduction FR",
-        ended: "100% + contenu annexe"
-      }]
     },
     {
       id: 2,
-      title: "Final Fantasy VIII",
-      titleAlias: ["Finaru Fantasy 7", "Méga super jeu"],
+      title: "Earthbound (Mother)",
       type: "Jeu vidéo",
       licenses: ["Final Fantasy"],
       genres: ["JRPG", "Science-fiction"],
@@ -57,17 +47,11 @@ export class WorkList {
       publishers: ["SquareEnix", "Squaresoft"],
       releaseYear: 1998,
       lastSessionDate: "2022",
-      sessions: [{
-        date: "2024",
-        moods: ["Chef-d'oeuvre", "Magnifique"],
-        comment: "J'ai grave kiffé. Ce jeu est une perfection absolue, des personnages incroyables, des designs de fous, une histoire très en avance sur son temps qui a complètement révolutionné le JRPG, mais qui est encore très pertinente aujourd'hui.",
-        modalities: "Version Steam, Mod traduction FR",
-        ended: "100% + contenu annexe"
-      }]
+      moods: ["Génial", "Pouet !"]
     }
   ]
 
-  displayedColumns: string[] = ['title', 'licenses', 'type', 'releaseYear', 'genre', 'artists', 'lastSessionDate', 'moods'];
+  displayedColumns: string[] = ['title', 'licenses', 'type', 'releaseYear', 'genres', 'artists', 'lastSessionDate', 'moods'];
   dataSource = new MatTableDataSource(this.works);
 
   @ViewChild(MatSort) sort: MatSort | undefined;
@@ -81,13 +65,14 @@ export class WorkList {
     return array.join(", ")
   }
 
-  public displayMoods(work: Work) {
-    if (!work.sessions.length) return "";
-    return this.displayFullArray(work.sessions[0].moods);
+  public displayMoods(work: WorkSummary) {
+    if (!work.moods || !work.moods.length) return "";
+    return this.displayFullArray(work.moods);
   }
 
-  private convertDate(dateString: string): string {
-    const splitted = dateString.split("-");
+  public getLastSessionDate(work: WorkSummary): string {
+    if (!work.lastSessionDate) return "";
+    const splitted = work.lastSessionDate.split("-");
     let newDate: string = "";
     for (let i = 0; i < splitted.length; i++) newDate = newDate + splitted[splitted.length - 1 - i] + "/";
     return newDate.slice(0, -1);

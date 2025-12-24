@@ -1,11 +1,8 @@
-import { SessionMedia } from "./session-media.model"
 import { SessionDate } from "./session-date.type"
-export interface Work {
+export interface WorkSummary {
   id: number,
   title: string,
-  titleAlias?: string[],
   type: string,
-
   licenses: string[],
   artists: string[],
   publishers: string[],
@@ -13,7 +10,5 @@ export interface Work {
 
   releaseYear?: number,
   lastSessionDate?: SessionDate,
-
-  sessions: SessionMedia[]
-
+  moods?: string[]
 }
