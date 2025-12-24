@@ -1,0 +1,27 @@
+<table>
+      <tr>
+        <th>Titre</th>
+        <th>Licence</th>
+        <th>Type</th>
+        <th>Année</th>
+        <th>Genre</th>
+        <th>Artistes</th>
+        <th>Dernière session</th>
+        <th>Appréciation</th>
+      </tr>
+      @for(work of works; track work.id){
+      <tr>
+        <td>{{work.title}}</td>
+        <td>{{displayFullArray(work.licenses)}}</td>
+        <td>{{work.type}}</td>
+        <td>{{work.releaseYear}}</td>
+        <td>{{displayFullArray(work.genres)}}</td>
+        <td>{{displayFullArray(work.artists)}}</td>
+        <td>{{displaySessionDates(work)}}</td>
+        <td>{{displayMoods(work)}}</td>
+      </tr>
+      }@empty {
+      Il est temps de commencer à créer vos souvenirs !
+      }
+
+    </table>
