@@ -10,6 +10,13 @@ import { PartialDatePipe } from '../../../../shared/pipes/partial-date.pipe';
 })
 export class SessionList {
 
-    session = input.required<SessionMedia>();
+  session = input.required<SessionMedia>();
+
+  get endMessage(): string {
+    if (this.session().ended == "Y") return "Terminé";
+    if (this.session().ended == "N") return "Non";
+    if (this.session().ended == "Ongoing") return "En cours";
+    return "";
+  }
 
 }

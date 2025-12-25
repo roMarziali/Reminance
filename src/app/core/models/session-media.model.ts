@@ -5,6 +5,7 @@ export interface SessionMedia {
   moods: string[],
   comment: string,
   modalities?: string,
-  ended?: string
+  ended: "Y" | "N" | "Ongoing",
+  endedPrecision?: string
 
 }

@@ -49,7 +49,8 @@ export class WorkList {
           dignissimos, aliquid rem eos nostrum nobis tempora pariatur, modi accusamus dolorem a id voluptate reiciendis.
           Illo.`,
         modalities: "Version NES sous émulateur, VO",
-        ended: "100% + quêtes annexes !"
+        ended: "Y",
+        endedPrecision: "100% + quêtes annexes !"
       }]
     },
     {

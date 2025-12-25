@@ -3,7 +3,10 @@
     <div class="session-date">{{ session().date | partialDate }}</div>
     <div class="session-modalities">{{ session().modalities }}</div>
     <div class="session-ended">
-      {{ session().ended }}
+      <strong>{{endMessage}}</strong>
+      @if(session().endedPrecision){
+      : {{ session().endedPrecision}}
+      }
     </div>
   </div>
 
