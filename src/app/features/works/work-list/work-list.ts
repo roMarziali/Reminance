@@ -22,7 +22,7 @@ export type ColumnInfo = {
 @Component({
   selector: 'app-work-list',
   imports: [MatCardModule, MatButtonModule, FormsModule, MatTableModule, MatSortModule, MatInputModule, MatFormFieldModule, MatIconModule,
-    WorkChips, SessionList, PartialDatePipe, MatChip, MatChipsModule],
+    WorkChips, SessionList, PartialDatePipe, MatChipsModule],
   templateUrl: './work-list.html',
   styleUrl: './work-list.scss',
 })
