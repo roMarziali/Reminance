@@ -1,3 +1,12 @@
 <mat-toolbar>
   <span>Reminance</span>
+
+  <span class="example-spacer"></span>
+  @if(isAuth){
+  <button matIconButton class="example-icon favorite-icon" aria-label="Example icon-button with heart icon"
+    (click)="logout()">
+    <mat-icon>exit_to_app</mat-icon>
+  </button>
+  }
+
 </mat-toolbar>

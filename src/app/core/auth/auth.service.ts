@@ -29,6 +29,7 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
     this.authStore.clear();
+    this.router.navigate(['/']);
   }
 
   restoreSession() {
@@ -36,6 +37,11 @@ export class AuthService {
     if (token) {
       this.authStore.setAuth({ id: 0, email: '' }, token);
     }
+  }
+
+  get isAuth(): boolean {
+    const token = localStorage.getItem('token');
+    return (token) ? true : false;
   }
 
 }
