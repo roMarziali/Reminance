@@ -1,5 +1,8 @@
 import { computed, Injectable, signal } from "@angular/core";
 import { Work } from "../../../core/models/work.model";
+import { HttpClient } from "@angular/common/http";
+import { tap } from "rxjs";
+import { environment } from "../../../../environments/environment";
 
 @Injectable({ providedIn: 'root' })
 export class WorkStoreService {
@@ -15,70 +18,23 @@ export class WorkStoreService {
     )
   );
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.loadWorks();
   }
 
-  private loadWorks() {
-    const data: Work[] = [
-      {
-        id: 1,
-        title: "Final Fantasy VII",
-        type: ["Jeu vidéo"],
-        licenses: ["Final Fantasy", "Mythic Quest"],
-        artists: ["Tetsuya Nomura", "Yoshitaka Amano", "Hironobu Sakaguchi", "Nobuo Uematsu", "Yoshinori Kitase"],
-        publishers: ["Nintendo"],
-        genres: ["JRPG", "Science-fiction"],
-        releaseDate: "1997",
-        moods: ["Génial", "Emouvant !"],
-        sessions: [{
-          id: 1,
-          date: '2024-05',
-          moods: ["Incroyable !", "Personnages charismatiques"],
-          comment: `Lordsdso.`,
-          modalities: "Version NES sous émulateur, VO",
-          ended: "Y",
-          endedPrecision: "100% + quêtes annexes !"
-        },
-        {
-          id: 2,
-          date: '2024-05',
-          moods: ["Incroyable !", "Personnages charismatiques"],
-          comment: `Lordsdso LordsdsoLordsdso LordsdsoLordsdso LordsdsoLordsdso LordsdsoLordsdso LordsdsoLordsdso LordsdsoLordsdso LordsdsoLordsdso LordsdsoLordsdso LordsdsoLordsdso LordsdsoLordsdso LordsdsoLordsdso LordsdsoLordsdso LordsdsoLordsdso LordsdsoLordsdso LordsdsoLordsdso Lordsdso.`,
-          modalities: "Version NES sous émulateur, VO",
-          ended: "Y",
-          endedPrecision: "100% + quêtes annexes !"
-        }]
-      },
-      {
-        id: 3,
-        title: "Kingdom Hearts",
-        type: ["Livre"],
-        licenses: ["Kingdom Hearts"],
-        artists: ["Tetsuya Nomura", "Yoko Shimomura"],
-        publishers: ["SquareEnix", "Squaresoft"],
-        genres: ["JRPG", "Contes de fées"],
-        releaseDate: "2002-12",
-        lastSessionDate: "2024-12-09"
-      },
-      {
-        id: 2,
-        title: "Earthbound",
-        titleAlias: ["Mother"],
-        type: ["Jeu vidéo"],
-        licenses: ["Final Fantasy"],
-        genres: ["JRPG", "Science-fiction"],
-        artists: ["Shigesato Itoi", "Yoshitaka Amano", "Hironobu Sakaguchi", "Nobuo Uematsu", "Yoshinori Kitase"],
-        publishers: ["SquareEnix", "Squaresoft"],
-        releaseDate: "1998",
-        lastSessionDate: "2022",
-        countries: ["Japon"],
-        moods: ["Génial", "Pouet !"]
-      }
-    ];
-
-    this._works.set(data);
-    this.expandAll();
+  loadWorks() {
+    this.http.get<Work[]>(`${environment.apiUrl}/api/works/works`)
+      .pipe(
+        tap(data => {
+          // on peut éventuellement transformer les données ici
+          this._works.set(data);
+        })
+      )
+      .subscribe({
+        error: err => {
+          console.error('Erreur lors du chargement des works', err);
+        }
+      });
   }
 
   expandAll() {

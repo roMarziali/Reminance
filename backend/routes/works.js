@@ -4,8 +4,8 @@ const checkAuth = require("../middleware/check-auth");
 const WorkManager = require("../models/work-manager");
 
 
-router.get("/story", checkAuth, async (req, res, next) => {
-  const works = await WorkManager.getStory();
+router.get("/works", checkAuth, async (req, res, next) => {
+  const works = await WorkManager.getWorks();
   res.send(works);
 });
 
