@@ -24,7 +24,7 @@ export class WorkStoreService {
       {
         id: 1,
         title: "Final Fantasy VII",
-        type: "Jeu vidéo",
+        type: ["Jeu vidéo"],
         licenses: ["Final Fantasy", "Mythic Quest"],
         artists: ["Tetsuya Nomura", "Yoshitaka Amano", "Hironobu Sakaguchi", "Nobuo Uematsu", "Yoshinori Kitase"],
         publishers: ["Nintendo"],
@@ -44,7 +44,7 @@ export class WorkStoreService {
       {
         id: 3,
         title: "Kingdom Hearts",
-        type: "Livre",
+        type: ["Livre"],
         licenses: ["Kingdom Hearts"],
         artists: ["Tetsuya Nomura", "Yoko Shimomura"],
         publishers: ["SquareEnix", "Squaresoft"],
@@ -56,7 +56,7 @@ export class WorkStoreService {
         id: 2,
         title: "Earthbound",
         titleAlias: ["Mother"],
-        type: "Jeu vidéo",
+        type: ["Jeu vidéo"],
         licenses: ["Final Fantasy"],
         genres: ["JRPG", "Science-fiction"],
         artists: ["Shigesato Itoi", "Yoshitaka Amano", "Hironobu Sakaguchi", "Nobuo Uematsu", "Yoshinori Kitase"],

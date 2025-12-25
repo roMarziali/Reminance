@@ -23,114 +23,58 @@
     <section aria-labelledby="table-title">
       <h3 id="table-title">Résultats</h3>
 
-      <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+      <table mat-table [dataSource]="dataSource" multiTemplateDataRows matSort class="mat-elevation-z8">
 
-        <ng-container matColumnDef="title">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            Titre
-          </th>
-          <td mat-cell *matCellDef="let work">
-            @if(work.titleAlias && work.titleAlias.length){
-            {{work.title + " (" + displayFullArray(work, "titleAlias") + ")"}}
-            }@else {
-            {{work.title}}
+        @for (column of columnsToDisplay; track column) {
+        <ng-container matColumnDef="{{column}}">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{columnsInfo[column].label}}</th>
+          <td mat-cell *matCellDef="let element">
+            @if(columnsInfo[column].type == "titleFunction"){
+            {{displayWorkTitle(element)}}
+            }
+            @if(columnsInfo[column].type == "chipModule" && element[column]){
+            <app-work-chips [category]="column" [values]="element[column]"></app-work-chips>
+            }
+            @if(columnsInfo[column].type == "datePipe"){
+            {{element[column] |partialDate}}
             }
           </td>
         </ng-container>
-
-        <ng-container matColumnDef="licenses">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            Franchise
-          </th>
+        }
+        <ng-container matColumnDef="expand">
+          <th mat-header-cell *matHeaderCellDef aria-label="row actions">&nbsp;</th>
           <td mat-cell *matCellDef="let work">
-            @if(work.licenses){
-            <app-work-chips category="licenses" [values]="work.licenses"></app-work-chips>
-            } </td>
-        </ng-container>
-
-
-        <ng-container matColumnDef="type">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            Type
-          </th>
-          <td mat-cell *matCellDef="let work">{{work.type}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="releaseDate">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            Date de sortie
-          </th>
-          <td mat-cell *matCellDef="let work"> {{work.releaseDate |partialDate}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="genres">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            Genres, thèmes
-          </th>
-          <td mat-cell *matCellDef="let work">
-            @if(work.genres){
-            <app-work-chips category="genres" [values]="work.genres"></app-work-chips>
-            }
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="artists">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            Artistes
-          </th>
-          <td mat-cell *matCellDef="let work">
-            @if(work.artists){
-            <app-work-chips category="artists" [values]="work.artists"></app-work-chips>
-            }
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="publishers">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            Éditeurs
-          </th>
-          <td mat-cell *matCellDef="let work">
-            @if(work.publishers){
-            <app-work-chips category="publishers" [values]="work.publishers"></app-work-chips>
-            }
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="lastSessionDate">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            Dernière session
-          </th>
-          <td mat-cell *matCellDef="let work"> {{work.lastSessionDate | partialDate }}</td>
-        </ng-container>
-
-
-        <ng-container matColumnDef="moods">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>
-            Appréciations
-          </th>
-          <td mat-cell *matCellDef="let work">
-            @if(work.moods){
-            <app-work-chips category="moods" [values]="work.moods"></app-work-chips>
-            }
-          </td>
-        </ng-container>
-
-        <ng-container matColumnDef="sessions">
-          <th mat-header-cell *matHeaderCellDef>
-            Sessions
-          </th>
-          <td mat-cell *matCellDef="let work">
-            @for(session of work.sessions; track session.id){
-            <app-session-list [session]="session"></app-session-list>
-            }
+            <button matIconButton aria-label="expand row" (click)="toggle(work); $event.stopPropagation()"
+              class="example-toggle-button" [class.example-toggle-button-expanded]="isExpanded(work)">
+              <mat-icon>keyboard_arrow_down</mat-icon>
+            </button>
           </td>
         </ng-container>
 
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <ng-container matColumnDef="expandedDetail">
+          <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
+            <div class="example-element-detail-wrapper"
+              [class.example-element-detail-wrapper-expanded]="isExpanded(element)">
+              <div class="example-element-detail">
+                @for(session of element.sessions; track session.id){
+                <app-session-list [session]="session"></app-session-list>
+                }
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplayWithExpand"></tr>
+        <tr mat-row *matRowDef="let element; columns: columnsToDisplayWithExpand;" class="example-element-row"
+          [class.example-expanded-row]="isExpanded(element)">
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
         <tr *matNoDataRow>
-          <td [colSpan]="displayedColumns.length"> Il est temps de commencer à créer vos souvenirs !</td>
+          <td [colSpan]="columnsToDisplay.length"> Il est temps de commencer à créer vos souvenirs !</td>
         </tr>
 
       </table>

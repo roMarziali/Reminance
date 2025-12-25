@@ -13,6 +13,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { WorkStoreService } from '../services/work-store.service';
 import { WorkChips } from './work-chips/work-chips';
 
+export type ColumnInfo = {
+  label: string;
+  type: 'titleFunction' | 'chipModule' | 'datePipe';
+};
+
 @Component({
   selector: 'app-work-list',
   imports: [MatCardModule, MatButtonModule, FormsModule, MatTableModule, MatSortModule, MatInputModule, MatFormFieldModule, MatIconModule,
@@ -30,7 +35,57 @@ export class WorkList {
     });
   }
 
-  displayedColumns: string[] = ['title', 'licenses', 'type', 'releaseDate', 'genres', 'artists', 'publishers', 'lastSessionDate', 'moods', 'sessions'];
+  columnsToDisplay: string[] = ['title', 'licenses', 'type', 'releaseDate', 'genres', 'artists', 'publishers', 'lastSessionDate', 'moods'];
+  columnsToDisplayWithExpand: string[] = [...this.columnsToDisplay, 'expand'];
+  expandedElement!: Work | null;
+
+
+  columnsInfo: Record<string, ColumnInfo> = {
+    title: {
+      label: "Titre",
+      type: "titleFunction"
+    },
+    licenses: {
+      label: "Série",
+      type: "chipModule",
+    },
+    type: {
+      label: "Type",
+      type: "chipModule",
+    },
+    releaseDate: {
+      label: "Date de sortie",
+      type: "datePipe",
+    },
+    genres: {
+      label: "Genres, thèmes",
+      type: "chipModule",
+    },
+    artists: {
+      label: "Artistes",
+      type: "chipModule",
+    },
+    publishers: {
+      label: "Éditeurs",
+      type: "chipModule",
+    },
+    lastSessionDate: {
+      label: "Dernière session",
+      type: "datePipe",
+    },
+    moods: {
+      label: "Ressentis",
+      type: "chipModule",
+    }
+  }
+
+  isExpanded(element: Work) {
+    return this.expandedElement === element;
+  }
+
+  toggle(element: Work) {
+    this.expandedElement = this.isExpanded(element) ? null : element;
+  }
 
   generalFilterValue: string = "";
 
@@ -40,10 +95,12 @@ export class WorkList {
     this.dataSource.sort = this.sort;
   }
 
-  public displayFullArray(work: Work, param: 'titleAlias' | 'moods' | 'licenses' | 'genres' | 'artists' | 'publishers'): string {
-    if (!work[param] || !work[param].length) return "";
-    return work[param].join(", ")
+  public displayWorkTitle(work: Work): string {
+    let string: string = work.title;
+    if (work.titleAlias && work.titleAlias.length) string += " (" + work.titleAlias.join(', ') + ")";
+    return string;
   }
+
 
   applyGeneralFilter() {
     // Attention, filtre géré par Angular Material, ne s'applique pas au système de chip géré par le service
