@@ -80,11 +80,11 @@ export class WorkList {
   }
 
   isExpanded(element: Work) {
-    return this.expandedElement === element;
+    return element.expanded;
   }
 
   toggle(element: Work) {
-    this.expandedElement = this.isExpanded(element) ? null : element;
+    element.expanded = !element.expanded;
   }
 
   generalFilterValue: string = "";

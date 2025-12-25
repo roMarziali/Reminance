@@ -50,7 +50,7 @@ export class WorkStoreService {
         publishers: ["SquareEnix", "Squaresoft"],
         genres: ["JRPG", "Contes de fées"],
         releaseDate: "2002-12",
-        lastSessionDate: "2024-12-09",
+        lastSessionDate: "2024-12-09"
       },
       {
         id: 2,
@@ -68,6 +68,16 @@ export class WorkStoreService {
     ];
 
     this._works.set(data);
+    this.expandAll();
+  }
+
+  expandAll() {
+    this._works.update(works =>
+      works.map(work => ({
+        ...work,
+        expanded: true,
+      }))
+    );
   }
 
   addFilter(field: string, value: string) {

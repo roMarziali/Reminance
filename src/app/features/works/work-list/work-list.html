@@ -51,8 +51,6 @@
           </td>
         </ng-container>
 
-
-
         <ng-container matColumnDef="expandedDetail">
           <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplayWithExpand.length">
             <div class="example-element-detail-wrapper"
@@ -60,6 +58,9 @@
               <div class="example-element-detail">
                 @for(session of element.sessions; track session.id){
                 <app-session-list [session]="session"></app-session-list>
+                }
+                @if(!element.sessions || !element.sessions.length){
+                  Vous n'avez encore rien écrit au sujet de cette oeuvre
                 }
               </div>
             </div>

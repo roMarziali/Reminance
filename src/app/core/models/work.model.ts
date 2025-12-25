@@ -16,5 +16,6 @@ export interface Work {
   lastSessionDate?: PartialDate,
   moods?: string[]
 
-  sessions? : SessionMedia[]
+  sessions?: SessionMedia[]
+  expanded?: boolean
 }
