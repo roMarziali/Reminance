@@ -1,10 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { WorkSummary } from '../../../core/models/work-summary';
+import { Work } from '../../../core/models/work.model';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-
 
 @Component({
   selector: 'app-work-list',
@@ -14,7 +13,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 })
 export class WorkList {
 
-  works: WorkSummary[] = [
+  works: Work[] = [
     {
       id: 1,
       title: "Final Fantasy VII",
@@ -39,7 +38,8 @@ export class WorkList {
     },
     {
       id: 2,
-      title: "Earthbound (Mother)",
+      title: "Earthbound",
+      titleAlias: ["Mother"],
       type: "Jeu vidéo",
       licenses: ["Final Fantasy"],
       genres: ["JRPG", "Science-fiction"],
@@ -51,7 +51,7 @@ export class WorkList {
     }
   ]
 
-  displayedColumns: string[] = ['title', 'licenses', 'type', 'releaseYear', 'genres', 'artists', 'publishers', 'lastSessionDate', 'moods'];
+  displayedColumns: string[] = ['title', 'licenses', 'type', 'releaseYear', 'genres', 'artists', 'publishers', 'lastSessionDate', 'moods', 'test'];
   dataSource = new MatTableDataSource(this.works);
 
   @ViewChild(MatSort) sort: MatSort | undefined;
@@ -61,16 +61,12 @@ export class WorkList {
   }
 
 
-  public displayFullArray(array: string[]): string {
-    return array.join(", ")
+  public displayFullArray(work: Work, param: 'titleAlias' | 'moods'|'licenses' | 'genres' | 'artists' | 'publishers'): string {
+    if (!work[param] || !work[param].length)  return "";
+    return work[param].join(", ")
   }
 
-  public displayMoods(work: WorkSummary) {
-    if (!work.moods || !work.moods.length) return "";
-    return this.displayFullArray(work.moods);
-  }
-
-  public getLastSessionDate(work: WorkSummary): string {
+  public getLastSessionDate(work: Work): string {
     if (!work.lastSessionDate) return "";
     const splitted = work.lastSessionDate.split("-");
     let newDate: string = "";

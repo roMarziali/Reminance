@@ -1,3 +1,3 @@
-export type SessionDate = | `${number}`
+export type PartialDate = | `${number}`
   | `${number}-${number}`
   | `${number}-${number}-${number}`;

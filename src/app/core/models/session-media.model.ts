@@ -1,6 +1,6 @@
-import { SessionDate } from "./session-date.type"
+import { PartialDate } from "./partial-date.type"
 export interface SessionMedia {
-  date: SessionDate,
+  date: PartialDate,
   moods: string[],
   comment: string,
   modalities?: string,
