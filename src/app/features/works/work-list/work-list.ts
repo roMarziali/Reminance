@@ -12,7 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { WorkStoreService } from '../services/work-store.service';
 import { WorkChips } from './work-chips/work-chips';
-import { MatChip, MatChipsModule } from "@angular/material/chips";
+import { MatChipsModule } from "@angular/material/chips";
 
 export type ColumnInfo = {
   label: string;
