@@ -39,6 +39,15 @@ export class WorkStoreService {
           modalities: "Version NES sous émulateur, VO",
           ended: "Y",
           endedPrecision: "100% + quêtes annexes !"
+        },
+      {
+          id: 2,
+          date: '2024-05',
+          moods: ["Incroyable !", "Personnages charismatiques"],
+          comment: `Lordsdso LordsdsoLordsdso LordsdsoLordsdso LordsdsoLordsdso LordsdsoLordsdso LordsdsoLordsdso LordsdsoLordsdso LordsdsoLordsdso LordsdsoLordsdso LordsdsoLordsdso LordsdsoLordsdso LordsdsoLordsdso LordsdsoLordsdso LordsdsoLordsdso LordsdsoLordsdso LordsdsoLordsdso Lordsdso.`,
+          modalities: "Version NES sous émulateur, VO",
+          ended: "Y",
+          endedPrecision: "100% + quêtes annexes !"
         }]
       },
       {

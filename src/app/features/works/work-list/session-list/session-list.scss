@@ -1,5 +1,6 @@
 .session-content {
   margin-bottom: 1rem;
+  display: flex;
 }
 
 .session-date {
@@ -11,7 +12,10 @@
 }
 
 .session-metadata {
-  margin-bottom: 1rem;
+  margin-right: 1rem;
+  min-width: 280px;
+  max-width: 280px;
+  border-right: 2px rgb(163, 149, 249) dotted
 }
 
 .session-comment {
