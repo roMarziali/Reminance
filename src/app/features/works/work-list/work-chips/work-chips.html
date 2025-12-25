@@ -1,0 +1,5 @@
+<mat-chip-grid>
+  @for (value of values(); track $index){
+  <mat-chip-row (click)="addFilter(value)">{{value}}</mat-chip-row>
+  }
+</mat-chip-grid>

@@ -42,7 +42,10 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header>
             Franchise
           </th>
-          <td mat-cell *matCellDef="let work"> {{displayFullArray(work, "licenses")}} </td>
+          <td mat-cell *matCellDef="let work">
+            @if(work.licenses){
+            <app-work-chips category="licenses" [values]="work.licenses"></app-work-chips>
+            } </td>
         </ng-container>
 
 
@@ -64,21 +67,33 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header>
             Genres, thèmes
           </th>
-          <td mat-cell *matCellDef="let work"> {{displayFullArray(work, "genres")}} </td>
+          <td mat-cell *matCellDef="let work">
+            @if(work.genres){
+            <app-work-chips category="genres" [values]="work.genres"></app-work-chips>
+            }
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="artists">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>
             Artistes
           </th>
-          <td mat-cell *matCellDef="let work"> {{displayFullArray(work, "artists")}} </td>
+          <td mat-cell *matCellDef="let work">
+            @if(work.artists){
+            <app-work-chips category="artists" [values]="work.artists"></app-work-chips>
+            }
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="publishers">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>
             Éditeurs
           </th>
-          <td mat-cell *matCellDef="let work"> {{displayFullArray(work, "publishers")}} </td>
+          <td mat-cell *matCellDef="let work">
+            @if(work.publishers){
+            <app-work-chips category="publishers" [values]="work.publishers"></app-work-chips>
+            }
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="lastSessionDate">
@@ -93,7 +108,11 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header>
             Appréciations
           </th>
-          <td mat-cell *matCellDef="let work"> {{displayFullArray(work, "moods")}} </td>
+          <td mat-cell *matCellDef="let work">
+            @if(work.moods){
+            <app-work-chips category="moods" [values]="work.moods"></app-work-chips>
+            }
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="sessions">

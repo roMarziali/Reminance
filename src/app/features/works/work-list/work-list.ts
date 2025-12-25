@@ -11,10 +11,12 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { WorkStoreService } from '../services/work-store.service';
+import { WorkChips } from './work-chips/work-chips';
 
 @Component({
   selector: 'app-work-list',
-  imports: [MatCardModule, MatButtonModule, FormsModule, MatTableModule, MatSortModule, SessionList, PartialDatePipe, MatInputModule, MatFormFieldModule, MatIconModule],
+  imports: [MatCardModule, MatButtonModule, FormsModule, MatTableModule, MatSortModule, MatInputModule, MatFormFieldModule, MatIconModule,
+    WorkChips, SessionList, PartialDatePipe],
   templateUrl: './work-list.html',
   styleUrl: './work-list.scss',
 })
