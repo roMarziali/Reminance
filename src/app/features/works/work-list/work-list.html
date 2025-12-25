@@ -10,9 +10,9 @@
       <h3 id="filters-title">Filtres</h3>
       <mat-form-field>
         <mat-label>Filtre</mat-label>
-        <input matInput (keyup)="applyFilter()" [(ngModel)]="generalFilterValue">
+        <input matInput (keyup)="applyGeneralFilter()" [(ngModel)]="generalFilterValue">
         @if (generalFilterValue) {
-        <button matSuffix matIconButton aria-label="Clear" (click)="generalFilterValue=''; applyFilter()">
+        <button matSuffix matIconButton aria-label="Clear" (click)="generalFilterValue=''; applyGeneralFilter()">
           <mat-icon>close</mat-icon>
         </button>
         }
