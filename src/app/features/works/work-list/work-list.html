@@ -66,7 +66,7 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
           Dernière session
         </th>
-        <td mat-cell *matCellDef="let work"> {{getLastSessionDate(work)}} </td>
+        <td mat-cell *matCellDef="let work"> {{work.lastSessionDate | partialDate }}</td>
       </ng-container>
 
 
@@ -83,7 +83,7 @@
         </th>
         <td mat-cell *matCellDef="let work">
           @for(session of work.sessions; track session.id){
-            {{session.date}}
+          <app-session-list [session]="session"></app-session-list>
           }
         </td>
       </ng-container>

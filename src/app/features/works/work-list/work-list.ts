@@ -4,10 +4,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { SessionList } from './session-list/session-list';
+import { PartialDatePipe } from '../../../shared/pipes/partial-date.pipe';
 
 @Component({
   selector: 'app-work-list',
-  imports: [MatCardModule, MatButtonModule, MatTableModule, MatSortModule],
+  imports: [MatCardModule, MatButtonModule, MatTableModule, MatSortModule, SessionList, PartialDatePipe],
   templateUrl: './work-list.html',
   styleUrl: './work-list.scss',
 })
