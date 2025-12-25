@@ -11,6 +11,6 @@ export const routes: Routes = [
   {
     path: 'main',
     component: WorkList,
-    canMatch: [AuthGuard]
+    canActivate: [AuthGuard]
   }
 ];

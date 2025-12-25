@@ -21,8 +21,8 @@ app.use((req, res, next) => {
   next();
 });
 
-//app.use("/api/works", story);
-//app.use("/api/auth", auth);
+app.use("/api/works", works);
+app.use("/api/auth", auth);
 
 app.use(express.static(__dirname + '/angular'));
 

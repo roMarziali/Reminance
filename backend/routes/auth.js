@@ -4,11 +4,11 @@ const { authenticate, generateToken } = require("../models/auth");
 
 router.post("/login", async (req, res, next) => {
   try {
-    const { login, password } = req.body;
-    const user = await authenticate(login, password);
+    const { email, password } = req.body;
+    const user = await authenticate(email, password);
     if (user) {
       const token = await generateToken(user);
-      res.status(200).json(token);
+      res.status(200).json({ user: email, accessToken: token });
     } else {
       res.status(401).send();
     }

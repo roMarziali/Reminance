@@ -2,22 +2,27 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { AuthStore } from "./auth.store";
 import { AuthResponse } from "./auth.model";
-
+import { environment } from "../../../environments/environment";
+import { Router } from "@angular/router";
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
+
   constructor(
     private http: HttpClient,
-    private authStore: AuthStore
+    private authStore: AuthStore,
+    private router: Router
   ) { }
 
   login(email: string, password: string) {
     return this.http.post<AuthResponse>(
-      '/api/auth/login',
+      `${environment.apiUrl}/api/auth/login`,
       { email, password }
     ).subscribe(res => {
       this.authStore.setAuth(res.user, res.accessToken);
       localStorage.setItem('token', res.accessToken);
+
+      this.router.navigate(['/main']);
     });
   }
 
@@ -32,4 +37,5 @@ export class AuthService {
       this.authStore.setAuth({ id: 0, email: '' }, token);
     }
   }
+
 }

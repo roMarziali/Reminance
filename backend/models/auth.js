@@ -2,22 +2,22 @@ const fs = require('fs');
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-async function authenticate(login, password) {
+async function authenticate(email, password) {
   try {
     const isAtLeast5FailedAttemptsInTheLastHour = await tooMuchRecentlyFailedAuthAttempts();
     if (isAtLeast5FailedAttemptsInTheLastHour) throw Error('Too many failed attempts');
     const users = JSON.parse(fs.readFileSync('./data/users.json', 'utf8'));
-    const user = users.find(user => user.login === login);
+    const user = users.find(user => user.email === email);
     if (!user) throw Error('User not found');
     const comparePassword = await bcrypt.compare(password, user.password);
     if (comparePassword) {
-      await logAuthAttempt(login, true);
+      await logAuthAttempt(email, true);
       return user;
     }
     throw Error('Password does not match');
   } catch (err) {
     console.error(err);
-    await logAuthAttempt(login, false);
+    await logAuthAttempt(email, false);
     return null;
   }
 }
@@ -36,11 +36,11 @@ module.exports = {
   generateToken
 }
 
-async function logAuthAttempt(login, success) {
+async function logAuthAttempt(email, success) {
   try {
     const authAttempts = JSON.parse(fs.readFileSync('./data/auth-attempts.json', 'utf8'));
     authAttempts.push({
-      login,
+      email,
       success,
       timestamp: Date.now()
     });
