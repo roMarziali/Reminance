@@ -1,8 +1,8 @@
 const express = require("express");
 const bodyParser = require('body-parser')
 const app = express();
-//const works = require("./routes/works");
-//const auth = require("./routes/auth");
+const works = require("./routes/works");
+const auth = require("./routes/auth");
 const path = require("path");
 
 app.use(bodyParser.urlencoded({ extended: false }))
