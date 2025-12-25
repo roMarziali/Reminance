@@ -1,6 +1,6 @@
 <form [formGroup]="form" (ngSubmit)="submit()">
 
-  <p>
+  <div>
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Email</mat-label>
       <input matInput type="email" formControlName="email" />
@@ -8,8 +8,9 @@
       <mat-error>Email invalide</mat-error>
       }
     </mat-form-field>
-  </p>
-  <p>
+  </div>
+
+  <div>
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Mot de passe</mat-label>
       <input matInput type="password" formControlName="password" />
@@ -17,15 +18,11 @@
       <mat-error>Mot de passe requis</mat-error>
       }
     </mat-form-field>
-  </p>
-  <p>
+  </div>
+
+  <div>
     <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
       Se connecter
     </button>
-  </p>
-
-
-
-
-
+  </div>
 </form>
