@@ -20,10 +20,35 @@ export class WorkList {
       type: "Jeu vidéo",
       licenses: ["Final Fantasy", "Mythic Quest"],
       artists: ["Tetsuya Nomura", "Yoshitaka Amano", "Hironobu Sakaguchi", "Nobuo Uematsu", "Yoshinori Kitase"],
-      publishers: ["SquareEnix", "Squaresoft"],
+      publishers: ["Nintendo"],
       genres: ["JRPG", "Science-fiction"],
       releaseYear: 1997,
-      moods: ["Génial", "Emouvant !"]
+      moods: ["Génial", "Emouvant !"],
+      sessions: [{
+        id: 1,
+        date: '2024-05',
+        moods: ["Incroyable !", "Personnages charismatiques"],
+        comment: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui ad quis esse unde eius. Consectetur vitae labore
+          facere laudantium expedita adipisci cum! Nobis assumenda aut, corrupti in eum et illum?
+          Sit adipisci nemo tempore nam quaerat soluta eum, consequuntur sint ab fugiat porro suscipit iure enim atque
+          facilis placeat laudantium vero totam asperiores omnis necessitatibus saepe? Dignissimos perferendis vel quos.
+          Nisi ex quas hic corporis provident fugit sapiente laboriosam distinctio. Sapiente quidem harum reprehenderit
+          maxime, natus eum libero nemo dolorum quo nostrum qui at iure aliquid ex accusamus quis laboriosam.
+          Sit expedita id, deleniti quibusdam sequi suscipit aut nulla cum, tempora voluptatibus nesciunt! Ipsa
+          repudiandae quisquam ab corporis quae totam dolores doloremque similique quo et esse cumque optio, laboriosam
+          vel?
+          Sunt explicabo laboriosam commodi quia dolor earum provident qui perferendis repellendus sed, quis optio
+          corporis quidem eius reiciendis aperiam minima facilis esse! Fugiat ut optio debitis magnam hic quidem
+          consequuntur!
+          Fugiat illum nobis reiciendis hic eius non labore voluptatem, molestiae aspernatur eum, suscipit quae a
+          laboriosam perferendis vero minus. Accusantium amet atque at animi error nulla, ab tempora! Ducimus,
+          consequatur!
+          Nam animi distinctio error sapiente repudiandae, eius sed maiores illo accusantium ipsam possimus quas
+          dignissimos, aliquid rem eos nostrum nobis tempora pariatur, modi accusamus dolorem a id voluptate reiciendis.
+          Illo.`,
+        modalities: "Version NES sous émulateur, VO",
+        ended: "100% + quêtes annexes !"
+      }]
     },
     {
       id: 3,
@@ -51,7 +76,7 @@ export class WorkList {
     }
   ]
 
-  displayedColumns: string[] = ['title', 'licenses', 'type', 'releaseYear', 'genres', 'artists', 'publishers', 'lastSessionDate', 'moods', 'test'];
+  displayedColumns: string[] = ['title', 'licenses', 'type', 'releaseYear', 'genres', 'artists', 'publishers', 'lastSessionDate', 'moods', 'sessions'];
   dataSource = new MatTableDataSource(this.works);
 
   @ViewChild(MatSort) sort: MatSort | undefined;
@@ -61,8 +86,8 @@ export class WorkList {
   }
 
 
-  public displayFullArray(work: Work, param: 'titleAlias' | 'moods'|'licenses' | 'genres' | 'artists' | 'publishers'): string {
-    if (!work[param] || !work[param].length)  return "";
+  public displayFullArray(work: Work, param: 'titleAlias' | 'moods' | 'licenses' | 'genres' | 'artists' | 'publishers'): string {
+    if (!work[param] || !work[param].length) return "";
     return work[param].join(", ")
   }
 

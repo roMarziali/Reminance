@@ -1,5 +1,6 @@
 import { PartialDate } from "./partial-date.type"
 export interface SessionMedia {
+  id: number,
   date: PartialDate,
   moods: string[],
   comment: string,
