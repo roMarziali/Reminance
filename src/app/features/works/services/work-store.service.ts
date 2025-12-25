@@ -95,10 +95,17 @@ export class WorkStoreService {
   }
 
   addFilter(field: string, value: string) {
-    this._filters.update(f => ({
-      ...f,
-      [field]: [...(f[field] ?? []), value]
-    }));
+    this._filters.update(f => {
+      const current = f[field] ?? [];
+      if (current.includes(value)) {
+        return f;
+      }
+
+      return {
+        ...f,
+        [field]: [...current, value],
+      };
+    });
   }
 
   removeFilter(field: string, value: string) {
