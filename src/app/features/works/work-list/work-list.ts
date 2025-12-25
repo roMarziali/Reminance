@@ -6,10 +6,14 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { SessionList } from './session-list/session-list';
 import { PartialDatePipe } from '../../../shared/pipes/partial-date.pipe';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-work-list',
-  imports: [MatCardModule, MatButtonModule, MatTableModule, MatSortModule, SessionList, PartialDatePipe],
+  imports: [MatCardModule, MatButtonModule, FormsModule, MatTableModule, MatSortModule, SessionList, PartialDatePipe, MatInputModule, MatFormFieldModule, MatIconModule],
   templateUrl: './work-list.html',
   styleUrl: './work-list.scss',
 })
@@ -81,6 +85,7 @@ export class WorkList {
 
   displayedColumns: string[] = ['title', 'licenses', 'type', 'releaseDate', 'genres', 'artists', 'publishers', 'lastSessionDate', 'moods', 'sessions'];
   dataSource = new MatTableDataSource(this.works);
+  generalFilterValue: string = "";
 
   @ViewChild(MatSort) sort: MatSort | undefined;
 
@@ -100,6 +105,11 @@ export class WorkList {
     let newDate: string = "";
     for (let i = 0; i < splitted.length; i++) newDate = newDate + splitted[splitted.length - 1 - i] + "/";
     return newDate.slice(0, -1);
+  }
+
+  applyFilter() {
+    const filterValue = this.generalFilterValue;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
 }

@@ -4,6 +4,19 @@
     <mat-card-subtitle>Tout ce dont je souhaite garder une trace</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
+
+
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter()" [(ngModel)]="generalFilterValue">
+      @if (generalFilterValue) {
+      <button matSuffix matIconButton aria-label="Clear" (click)="generalFilterValue=''; applyFilter()">
+        <mat-icon>close</mat-icon>
+      </button>
+      }
+    </mat-form-field>
+
+
     <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
       <ng-container matColumnDef="title">
