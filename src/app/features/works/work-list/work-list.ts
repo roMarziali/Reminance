@@ -24,7 +24,7 @@ export class WorkList {
       artists: ["Tetsuya Nomura", "Yoshitaka Amano", "Hironobu Sakaguchi", "Nobuo Uematsu", "Yoshinori Kitase"],
       publishers: ["Nintendo"],
       genres: ["JRPG", "Science-fiction"],
-      releaseYear: 1997,
+      releaseDate: "1997",
       moods: ["Génial", "Emouvant !"],
       sessions: [{
         id: 1,
@@ -60,7 +60,7 @@ export class WorkList {
       artists: ["Tetsuya Nomura", "Yoko Shimomura"],
       publishers: ["SquareEnix", "Squaresoft"],
       genres: ["JRPG", "Contes de fées"],
-      releaseYear: 2002,
+      releaseDate: "2002-12",
       lastSessionDate: "2024-12-09",
     },
     {
@@ -72,13 +72,13 @@ export class WorkList {
       genres: ["JRPG", "Science-fiction"],
       artists: ["Shigesato Itoi", "Yoshitaka Amano", "Hironobu Sakaguchi", "Nobuo Uematsu", "Yoshinori Kitase"],
       publishers: ["SquareEnix", "Squaresoft"],
-      releaseYear: 1998,
+      releaseDate: "1998",
       lastSessionDate: "2022",
       moods: ["Génial", "Pouet !"]
     }
   ]
 
-  displayedColumns: string[] = ['title', 'licenses', 'type', 'releaseYear', 'genres', 'artists', 'publishers', 'lastSessionDate', 'moods', 'sessions'];
+  displayedColumns: string[] = ['title', 'licenses', 'type', 'releaseDate', 'genres', 'artists', 'publishers', 'lastSessionDate', 'moods', 'sessions'];
   dataSource = new MatTableDataSource(this.works);
 
   @ViewChild(MatSort) sort: MatSort | undefined;

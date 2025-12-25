@@ -11,7 +11,7 @@ export interface Work {
   publishers?: string[],
   genres?: string[],
 
-  releaseYear?: number,
+  releaseDate?: PartialDate,
 
   lastSessionDate?: PartialDate,
   moods?: string[]

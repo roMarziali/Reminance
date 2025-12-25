@@ -34,11 +34,11 @@
         <td mat-cell *matCellDef="let work">{{work.type}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="releaseYear">
+      <ng-container matColumnDef="releaseDate">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
           Année de sortie
         </th>
-        <td mat-cell *matCellDef="let work"> {{work.releaseYear}} </td>
+        <td mat-cell *matCellDef="let work"> {{work.releaseDate |partialDate}} </td>
       </ng-container>
 
       <ng-container matColumnDef="genres">
