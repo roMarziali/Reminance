@@ -90,11 +90,31 @@ export class WorkStoreService {
     );
   }
 
+  get filters() {
+    return this._filters
+  }
+
   addFilter(field: string, value: string) {
     this._filters.update(f => ({
       ...f,
       [field]: [...(f[field] ?? []), value]
     }));
+  }
+
+  removeFilter(field: string, value: string) {
+    this._filters.update(f => {
+      const values = (f[field] ?? []).filter(v => v !== value);
+
+      if (values.length === 0) {
+        const { [field]: _, ...rest } = f;
+        return rest;
+      }
+
+      return {
+        ...f,
+        [field]: values,
+      };
+    });
   }
 
   //test toremove

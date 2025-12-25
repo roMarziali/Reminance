@@ -1,4 +1,4 @@
-import { Component, effect, ViewChild } from '@angular/core';
+import { Component, computed, effect, ViewChild } from '@angular/core';
 import { Work } from '../../../core/models/work.model';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { WorkStoreService } from '../services/work-store.service';
 import { WorkChips } from './work-chips/work-chips';
+import { MatChip, MatChipsModule } from "@angular/material/chips";
 
 export type ColumnInfo = {
   label: string;
@@ -21,7 +22,7 @@ export type ColumnInfo = {
 @Component({
   selector: 'app-work-list',
   imports: [MatCardModule, MatButtonModule, FormsModule, MatTableModule, MatSortModule, MatInputModule, MatFormFieldModule, MatIconModule,
-    WorkChips, SessionList, PartialDatePipe],
+    WorkChips, SessionList, PartialDatePipe, MatChip, MatChipsModule],
   templateUrl: './work-list.html',
   styleUrl: './work-list.scss',
 })
@@ -105,11 +106,22 @@ export class WorkList {
     return string;
   }
 
-
   applyGeneralFilter() {
     // Attention, filtre géré par Angular Material, ne s'applique pas au système de chip géré par le service
     const filterValue = this.generalFilterValue;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  get activeFilters() {
+    return computed(() =>
+      Object.entries(this.workStore.filters()).flatMap(([field, values]) =>
+        values.map(value => ({ field, value }))
+      )
+    );
+  }
+
+  removeFilter(field: string, value: string) {
+    this.workStore.removeFilter(field, value);
   }
 
 }

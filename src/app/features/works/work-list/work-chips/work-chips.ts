@@ -10,14 +10,16 @@ import { MatChipsModule } from '@angular/material/chips';
 })
 export class WorkChips {
 
-  category = input.required<string>();
+  constructor(public workStore: WorkStoreService) { }
+
+  field = input.required<string>();
   values = input.required<string[]>();
 
   trackByIndex(index: number, item: string) {
-    return index; // ou item si tes strings sont uniques
+    return index;
   }
 
   addFilter(value: string) {
-    console.log(value);
+    this.workStore.addFilter(this.field(), value);
   }
 }

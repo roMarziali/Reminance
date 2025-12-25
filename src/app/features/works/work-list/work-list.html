@@ -18,6 +18,19 @@
         }
       </mat-form-field>
 
+      <div>
+        <mat-chip-grid #reactiveChipGrid>
+          @for (filter of activeFilters(); track filter.field + filter.value) {
+          <mat-chip-row (removed)="removeFilter(filter.field, filter.value)">
+            {{ filter.field }}: {{ filter.value }}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+          }
+        </mat-chip-grid>
+      </div>
+
     </section>
 
     <section aria-labelledby="table-title">
@@ -33,7 +46,7 @@
             {{displayWorkTitle(element)}}
             }
             @if(columnsInfo[column].type == "chipModule" && element[column]){
-            <app-work-chips [category]="column" [values]="element[column]"></app-work-chips>
+            <app-work-chips [field]="column" [values]="element[column]"></app-work-chips>
             }
             @if(columnsInfo[column].type == "datePipe"){
             {{element[column] |partialDate}}
