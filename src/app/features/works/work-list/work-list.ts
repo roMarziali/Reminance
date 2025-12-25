@@ -35,7 +35,7 @@ export class WorkList {
     });
   }
 
-  columnsToDisplay: string[] = ['title', 'licenses', 'type', 'releaseDate', 'genres', 'artists', 'publishers', 'lastSessionDate', 'moods'];
+  columnsToDisplay: string[] = ['title', 'licenses', 'type', 'releaseDate', 'genres', 'artists', 'publishers', 'countries', 'lastSessionDate', 'moods'];
   columnsToDisplayWithExpand: string[] = [...this.columnsToDisplay, 'expand'];
   expandedElement!: Work | null;
 
@@ -67,6 +67,10 @@ export class WorkList {
     },
     publishers: {
       label: "Éditeurs",
+      type: "chipModule",
+    },
+    countries: {
+      label: "Pays",
       type: "chipModule",
     },
     lastSessionDate: {

@@ -10,6 +10,7 @@ export interface Work {
   artists?: string[],
   publishers?: string[],
   genres?: string[],
+  countries?: string[],
 
   releaseDate?: PartialDate,
 

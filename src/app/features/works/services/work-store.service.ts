@@ -40,7 +40,7 @@ export class WorkStoreService {
           ended: "Y",
           endedPrecision: "100% + quêtes annexes !"
         },
-      {
+        {
           id: 2,
           date: '2024-05',
           moods: ["Incroyable !", "Personnages charismatiques"],
@@ -72,6 +72,7 @@ export class WorkStoreService {
         publishers: ["SquareEnix", "Squaresoft"],
         releaseDate: "1998",
         lastSessionDate: "2022",
+        countries: ["Japon"],
         moods: ["Génial", "Pouet !"]
       }
     ];
