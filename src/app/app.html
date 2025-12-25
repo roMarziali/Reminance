@@ -1,4 +1,10 @@
 <main class="main">
   <app-header></app-header>
+
+  @if(isAuth){
+  <app-work-list></app-work-list>
+  }@else{
+  <app-login></app-login>
+  }
   <router-outlet></router-outlet>
 </main>

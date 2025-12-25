@@ -11,6 +11,15 @@ export class AuthStore {
 
   readonly isAuthenticated = computed(() => !!this._token());
 
+  constructor() {
+  if (typeof window !== 'undefined') {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this._token.set(token);
+      this._user.set({ id: 0, email: '' });
+    }
+  }
+}
   setAuth(user: AuthUser, token: string) {
     this._user.set(user);
     this._token.set(token);
