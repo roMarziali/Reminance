@@ -56,12 +56,14 @@
             <div class="example-element-detail-wrapper"
               [class.example-element-detail-wrapper-expanded]="isExpanded(element)">
               <div class="example-element-detail">
-                @for(session of element.sessions; track session.id){
-                <app-session-list [session]="session"></app-session-list>
-                }
-                @if(!element.sessions || !element.sessions.length){
+                <div class="expanded-content">
+                  @for(session of element.sessions; track session.id){
+                  <app-session-list [session]="session"></app-session-list>
+                  }
+                  @if(!element.sessions || !element.sessions.length){
                   Vous n'avez encore rien écrit au sujet de cette oeuvre
-                }
+                  }
+                </div>
               </div>
             </div>
           </td>
