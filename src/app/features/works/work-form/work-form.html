@@ -28,18 +28,25 @@
             </button>
           </mat-chip-row>
           }
-
-          <input [matChipInputFor]="chipGrid" [matChipInputSeparatorKeyCodes]="[13, 188]"
-            (matChipInputTokenEnd)="addChipsValue($event.value, field.name)" />
         </mat-chip-grid>
+
+        <input [matChipInputFor]="chipGrid" [matChipInputSeparatorKeyCodes]="[13, 188]" #chipsInput
+          [matAutocomplete]="auto"
+          (matChipInputTokenEnd)="addChipsValue($event.value, field.name); chipsInput.value = ''" />
+
+
+        <mat-autocomplete #auto="matAutocomplete"
+          (optionSelected)="selected($event, field.name); chipsInput.value = ''">
+          @for (string of getFilteredSuggestions(field.name,chipsInput.value) ; track string) {
+          <mat-option [value]="string">{{string}}</mat-option>
+          }
+        </mat-autocomplete>
 
 
       </mat-form-field>
       }
-
     </div>
     }
-
 
   </mat-dialog-content>
 

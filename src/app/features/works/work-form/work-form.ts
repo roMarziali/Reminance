@@ -7,6 +7,7 @@ import { MatChipGrid, MatChipsModule } from "@angular/material/chips";
 import { MatIcon } from "@angular/material/icon";
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { WorkStoreService } from '../services/work-store.service';
+import { Work } from '../../../core/models/work.model';
 
 export interface WorkFormField {
   name: string;
@@ -14,6 +15,8 @@ export interface WorkFormField {
   type: string;
   suggestFromPrevious?: boolean;
 }
+
+export type FieldChips = "type" | "licenses" | "artists" | "publishers" | "genres" | "countries";
 
 @Component({
   selector: 'app-work-form',
@@ -42,8 +45,6 @@ export class WorkForm {
 
   readonly dialogRef = inject(MatDialogRef<WorkForm>);
 
-  public suggestions: Record<string, string[]> = {};
-
   public fields: WorkFormField[] = [
     { name: "title", label: "Titre", type: "string" },
     { name: "titleAlias", label: "Alias", type: "chips" },
@@ -55,6 +56,9 @@ export class WorkForm {
     { name: "countries", label: "Pays", type: "chips", suggestFromPrevious: true },
     { name: "releaseDate", label: "Date de sortie", type: "date" }
   ];
+  readonly SUGGEST_FIELDS = this.fields
+    .filter(f => f.suggestFromPrevious)
+    .map(f => f.name);
 
   private formBuilder = inject(FormBuilder);
 
@@ -70,22 +74,36 @@ export class WorkForm {
     releaseDate: ['']
   });
 
+  suggestions = computed(() => {
+    const works = this.workStore.works();
+    const result: Partial<Record<FieldChips, string[]>> = {};
+    for (const field of this.fields) {
+      if (field.suggestFromPrevious) {
+        result[field.name as FieldChips] =
+          this.buildSuggestions(works, field.name as FieldChips);
+      }
+    }
+    return result;
+  });
+
+  private buildSuggestions<T extends FieldChips>(
+    works: Work[],
+    field: T
+  ): string[] {
+    return Array.from(
+      new Set(
+        works.flatMap(work => {
+          const value = work[field];
+          return isStringArray(value) ? value : [];
+        })
+      )
+    ).sort((a, b) => a.localeCompare(b));
+  }
+
   readonly fieldValues: Record<string, Signal<string>> = this.fields.reduce((acc, field) => {
     acc[field.name] = signal(this.form.get(field.name)?.value || '');
     return acc;
   }, {} as Record<string, Signal<string>>);
-
-  readonly filteredSuggestions: Signal<Record<string, string[]>> = computed(() => {
-    const filtered: Record<string, string[]> = {};
-    for (const field of this.fields) {
-      if (!field.suggestFromPrevious) continue;
-      const currentValue = this.fieldValues[field.name]?.()?.toLowerCase() || '';
-      filtered[field.name] = currentValue
-        ? this.suggestions[field.name].filter(value => value.toLowerCase().includes(currentValue))
-        : [...this.suggestions[field.name]];
-    }
-    return filtered;
-  });
 
   getField(fieldName: string): FormArray<FormControl<string>> {
     return this.form.get(fieldName) as FormArray<FormControl<string>>;
@@ -113,4 +131,15 @@ export class WorkForm {
     this.workStore.addWork(this.form.value);
     this.dialogRef.close("update");
   }
+
+  getFilteredSuggestions(fieldName: string, value: string): string[] {
+    return (this.suggestions()[fieldName as FieldChips] ?? []).filter(option =>
+      option.toLowerCase().includes(value.toLowerCase())
+    );
+  }
+
+}
+
+function isStringArray(value: unknown): value is string[] {
+  return Array.isArray(value) && value.every(v => typeof v === 'string');
 }
