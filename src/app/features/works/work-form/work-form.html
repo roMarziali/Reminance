@@ -10,7 +10,7 @@
         <mat-label>{{field.label}}</mat-label>
         <input matInput [formControlName]="field.name" />
         @if (form.controls.title.invalid && form.controls.title.touched) {
-        <mat-error>Titre invalide</mat-error>
+        <mat-error>Champ invalide</mat-error>
         }
       </mat-form-field>
       }

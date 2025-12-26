@@ -8,6 +8,8 @@ import { MatIcon } from "@angular/material/icon";
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { WorkStoreService } from '../services/work-store.service';
 import { Work } from '../../../core/models/work.model';
+import { isoDateValidator } from '../../../validators/iso-date.validator';
+
 
 export interface WorkFormField {
   name: string;
@@ -17,6 +19,8 @@ export interface WorkFormField {
 }
 
 export type FieldChips = "type" | "licenses" | "artists" | "publishers" | "genres" | "countries";
+const ISO_DATE_REGEX = /^(\d{4})(-(0[1-9]|1[0-2]))?(-(0[1-9]|[12]\d|3[01]))?$/;
+
 
 @Component({
   selector: 'app-work-form',
@@ -71,7 +75,7 @@ export class WorkForm {
     publishers: this.formBuilder.array<string>([]),
     genres: this.formBuilder.array<string>([]),
     countries: this.formBuilder.array<string>([]),
-    releaseDate: ['']
+    releaseDate: ['', isoDateValidator()]
   });
 
   suggestions = computed(() => {
@@ -137,7 +141,6 @@ export class WorkForm {
       option.toLowerCase().includes(value.toLowerCase())
     );
   }
-
 }
 
 function isStringArray(value: unknown): value is string[] {
