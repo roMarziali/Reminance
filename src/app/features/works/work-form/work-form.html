@@ -42,7 +42,9 @@
           }
         </mat-autocomplete>
 
-
+        @if (getField(field.name).length === 0 && field.suggestFromPrevious){
+        <mat-hint>Actuellement vide</mat-hint>
+        }
       </mat-form-field>
       }
     </div>
