@@ -100,10 +100,8 @@ export class WorkList {
     this.dataSource.sort = this.sort;
   }
 
-  public displayWorkTitle(work: Work): string {
-    let string: string = work.title;
-    if (work.titleAlias && work.titleAlias.length) string += " (" + work.titleAlias.join(', ') + ")";
-    return string;
+  public displayWorkTitleAlias(titleAlias: string[]): string {
+    return " (" + titleAlias.join(', ') + ")";
   }
 
   applyGeneralFilter() {

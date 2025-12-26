@@ -43,7 +43,10 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header>{{columnsInfo[column].label}}</th>
           <td mat-cell *matCellDef="let element">
             @if(columnsInfo[column].type == "titleFunction"){
-            {{displayWorkTitle(element)}}
+            <strong>{{element.title}}</strong>
+            @if(element.titleAlias){
+            {{displayWorkTitleAlias(element.titleAlias)}}
+            }
             }
             @if(columnsInfo[column].type == "chipModule" && element[column]){
             <app-work-chips [field]="column" [values]="element[column]"></app-work-chips>
