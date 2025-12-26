@@ -55,7 +55,7 @@ export class WorkList {
       type: "chipModule",
     },
     type: {
-      label: "Type",
+      label: "Media",
       type: "chipModule",
     },
     releaseDate: {
