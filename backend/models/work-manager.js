@@ -35,4 +35,14 @@ module.exports = class WorkManager {
       return [];
     }
   }
+
+  static async addWork(work) {
+    const data = fs.readFileSync(WORKS_FILE_PATH, 'utf8');
+    const works = JSON.parse(data);
+    const maxId = works.reduce((max, item) => Math.max(max, item.id), 0);
+    work.id = maxId + 1;
+    work.sessions = [];
+    works.push(work);
+    fs.writeFileSync(WORKS_FILE_PATH, JSON.stringify(works, null, 2), 'utf-8');
+  }
 };

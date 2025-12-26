@@ -99,7 +99,7 @@ export class WorkStoreService {
   }
 
   addWork(formValue: any) {
-    this.http.post<Work[]>(`${environment.apiUrl}/api/works/works`, formValue).subscribe({
+    this.http.post(`${environment.apiUrl}/api/works/work`, formValue).subscribe({
       next: res => this.loadWorks()
     })
   }

@@ -9,5 +9,10 @@ router.get("/works", checkAuth, async (req, res, next) => {
   res.send(works);
 });
 
+router.post("/work", checkAuth, async (req, res, next) => {
+  await WorkManager.addWork(req.body);
+  res.send(true);
+});
+
 
 module.exports = router;
