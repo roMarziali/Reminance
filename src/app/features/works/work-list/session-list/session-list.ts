@@ -12,6 +12,11 @@ export class SessionList {
 
   session = input.required<SessionMedia>();
 
+  get moods(): string {
+    if (!this.session().moods || !this.session().moods.length) return "Aucun pour l'instant !";
+    return this.session().moods.join(", ");
+  }
+
   get endMessage(): string {
     if (this.session().ended == "Y") return "Terminé";
     if (this.session().ended == "N") return "Non";

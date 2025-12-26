@@ -12,12 +12,28 @@
 }
 
 .session-metadata {
-  margin-right: 1rem;
-  min-width: 280px;
-  max-width: 280px;
-  border-right: 2px rgb(163, 149, 249) dotted
+  min-width: 15%;
+}
+
+.session-section {
+  border-right: 2px rgb(163, 149, 249) dotted;
+  padding-left: 1rem;
+  padding-right: 1rem;
+
+  &:last-child {
+    border-right: none;
+  }
 }
 
 .session-comment {
-  text-align: justify
+  text-align: justify;
+  min-width: 100%;
+}
+
+.session-moods {
+  min-width: 15%;
+}
+
+.moods-prefix {
+  text-decoration: underline;
 }
