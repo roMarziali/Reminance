@@ -14,7 +14,7 @@ import { WorkStoreService } from '../services/work-store.service';
 import { WorkChips } from './work-chips/work-chips';
 import { MatChipsModule } from "@angular/material/chips";
 import { WorkForm } from '../work-form/work-form';
-import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 export type ColumnInfo = {
   label: string;
@@ -135,7 +135,9 @@ export class WorkList {
   }
 
   openWorkForm() {
-    const dialogRef = this.dialog.open(WorkForm);
+    const dialogRef = this.dialog.open(WorkForm, {
+      disableClose: true
+    });
     dialogRef.afterClosed().subscribe(result => {
       if (result == "update") this.workStore.loadWorks();
     });
