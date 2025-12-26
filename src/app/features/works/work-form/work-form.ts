@@ -3,6 +3,8 @@ import { FormArray, FormBuilder, FormControl, Validators, ReactiveFormsModule } 
 import { MatFormField, MatInputModule } from "@angular/material/input";
 import { MatDialogContent, MatDialogActions, MatDialogTitle, MatDialogClose, MatDialogRef } from "@angular/material/dialog";
 import { MatButtonModule } from '@angular/material/button';
+import { MatChipGrid, MatChipInputEvent, MatChipsModule } from "@angular/material/chips";
+import { MatIcon } from "@angular/material/icon";
 
 @Component({
   selector: 'app-work-form',
@@ -10,8 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatDialogTitle,
     MatDialogContent,
     MatDialogActions,
-    MatDialogClose,
-  ],
+    MatDialogClose, MatChipGrid, MatChipsModule, MatIcon],
   templateUrl: './work-form.html',
   styleUrl: './work-form.scss',
 })
@@ -30,6 +31,24 @@ export class WorkForm {
 
   get titleAlias(): FormArray<FormControl<string>> {
     return this.form.get('titleAlias') as FormArray<FormControl<string>>;
+  }
+
+  addAlias(event: MatChipInputEvent) {
+    const input = event.input;
+    const value = event.value?.trim();
+
+    if (value && !this.titleAlias.value.includes(value)) {
+      this.titleAlias.push(
+        new FormControl(value, { nonNullable: true })
+      );
+    }
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  removeAlias(index: number) {
+    this.titleAlias.removeAt(index);
   }
 
   submit() {

@@ -12,7 +12,30 @@
         }
       </mat-form-field>
     </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Alias</mat-label>
+
+      <mat-chip-grid #chipGrid>
+        @for (alias of titleAlias.controls; track $index){
+        <mat-chip-row (removed)="removeAlias($index)">
+          {{ alias.value }}
+          <button matChipRemove>
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+        }
+
+
+        <input placeholder="Ajouter un alias" [matChipInputFor]="chipGrid" [matChipInputSeparatorKeyCodes]="[13, 188]"
+          (matChipInputTokenEnd)="addAlias($event)" />
+      </mat-chip-grid>
+    </mat-form-field>
+
+
+
   </mat-dialog-content>
+
   <mat-dialog-actions align="end">
     <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
       Enregistrer
