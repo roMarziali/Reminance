@@ -122,4 +122,12 @@ export class WorkList {
     this.workStore.removeFilter(field, value);
   }
 
+  expandAll() {
+    this.workStore.expandAll();
+  }
+
+  reduceAll() {
+    this.workStore.reduceAll();
+  }
+
 }

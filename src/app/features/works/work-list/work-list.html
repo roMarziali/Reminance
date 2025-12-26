@@ -36,6 +36,11 @@
     <section aria-labelledby="table-title">
       <h3 id="table-title">Résultats</h3>
 
+      <mat-card-actions>
+        <button matButton="outlined" (click)="expandAll()">Étendre tout</button>
+        <button matButton="outlined" (click)="reduceAll()">Réduire tout</button>
+      </mat-card-actions>
+
       <table mat-table [dataSource]="dataSource" multiTemplateDataRows matSort class="mat-elevation-z8">
 
         @for (column of columnsToDisplay; track column) {

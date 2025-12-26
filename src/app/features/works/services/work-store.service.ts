@@ -40,10 +40,27 @@ export class WorkStoreService {
 
   expandAll() {
     this._works.update(works =>
-      works.map(work => ({
-        ...work,
-        expanded: true,
-      }))
+      works.map(work => {
+        const { expanded, ...rest } = work;
+
+        return {
+          ...rest,
+          expanded: true,
+        };
+      })
+    );
+  }
+
+  reduceAll() {
+    this._works.update(works =>
+      works.map(work => {
+        const { expanded, ...rest } = work;
+
+        return {
+          ...rest,
+          expanded: false,
+        };
+      })
     );
   }
 
