@@ -28,6 +28,7 @@ export class WorkStoreService {
         tap(data => {
           // on peut éventuellement transformer les données ici
           this._works.set(data);
+          this.expandAll();
         })
       )
       .subscribe({
