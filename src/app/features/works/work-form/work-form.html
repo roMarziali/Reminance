@@ -3,35 +3,42 @@
 <form [formGroup]="form" (ngSubmit)="submit()">
   <mat-dialog-content class="mat-typography">
 
+    @for(field of fields; track $index){
     <div>
+      @if (field.type == "string" || field.type == "date"){
       <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Tite</mat-label>
-        <input matInput type="title" formControlName="title" />
+        <mat-label>{{field.label}}</mat-label>
+        <input matInput [formControlName]="field.name" />
         @if (form.controls.title.invalid && form.controls.title.touched) {
         <mat-error>Titre invalide</mat-error>
         }
       </mat-form-field>
+      }
+
+      @if (field.type == "chips"){
+      <mat-form-field appearance="outline">
+        <mat-label>{{field.label}}</mat-label>
+
+        <mat-chip-grid #chipGrid>
+          @for (control of getField(field.name).controls; track $index){
+          <mat-chip-row (removed)="removeChipsValue($index, field.name)">
+            {{ control.value }}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+          }
+
+          <input [matChipInputFor]="chipGrid" [matChipInputSeparatorKeyCodes]="[13, 188]"
+            (matChipInputTokenEnd)="addChipsValue($event.value, field.name)" />
+        </mat-chip-grid>
+
+
+      </mat-form-field>
+      }
+
     </div>
-
-    <mat-form-field appearance="outline">
-      <mat-label>Alias</mat-label>
-
-      <mat-chip-grid #chipGrid>
-        @for (alias of titleAlias.controls; track $index){
-        <mat-chip-row (removed)="removeAlias($index)">
-          {{ alias.value }}
-          <button matChipRemove>
-            <mat-icon>cancel</mat-icon>
-          </button>
-        </mat-chip-row>
-        }
-
-
-        <input placeholder="Ajouter un alias" [matChipInputFor]="chipGrid" [matChipInputSeparatorKeyCodes]="[13, 188]"
-          (matChipInputTokenEnd)="addAlias($event)" />
-      </mat-chip-grid>
-    </mat-form-field>
-
+    }
 
 
   </mat-dialog-content>
