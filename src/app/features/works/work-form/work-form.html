@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>Ajouter une oeuvre</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <mat-dialog-content class="mat-typography">
+
+    <div>
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Tite</mat-label>
+        <input matInput type="title" formControlName="title" />
+        @if (form.controls.title.invalid && form.controls.title.touched) {
+        <mat-error>Titre invalide</mat-error>
+        }
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+      Enregistrer
+    </button>
+    <button mat-dialog-close matButton>Annuler</button>
+  </mat-dialog-actions>
+</form>

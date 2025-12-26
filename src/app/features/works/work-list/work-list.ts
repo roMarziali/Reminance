@@ -1,4 +1,4 @@
-import { Component, computed, effect, ViewChild } from '@angular/core';
+import { Component, computed, effect, inject, ViewChild } from '@angular/core';
 import { Work } from '../../../core/models/work.model';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,6 +13,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { WorkStoreService } from '../services/work-store.service';
 import { WorkChips } from './work-chips/work-chips';
 import { MatChipsModule } from "@angular/material/chips";
+import { WorkForm } from '../work-form/work-form';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 
 export type ColumnInfo = {
   label: string;
@@ -22,13 +24,15 @@ export type ColumnInfo = {
 @Component({
   selector: 'app-work-list',
   imports: [MatCardModule, MatButtonModule, FormsModule, MatTableModule, MatSortModule, MatInputModule, MatFormFieldModule, MatIconModule,
-    WorkChips, SessionList, PartialDatePipe, MatChipsModule],
+    WorkChips, SessionList, PartialDatePipe, MatChipsModule, MatDialogModule],
   templateUrl: './work-list.html',
   styleUrl: './work-list.scss',
 })
 export class WorkList {
 
   dataSource!: MatTableDataSource<Work>;
+  readonly dialog = inject(MatDialog);
+
   constructor(public workStore: WorkStoreService) {
     this.dataSource = new MatTableDataSource();
     effect(() => {
@@ -128,6 +132,13 @@ export class WorkList {
 
   reduceAll() {
     this.workStore.reduceAll();
+  }
+
+  openWorkForm() {
+    const dialogRef = this.dialog.open(WorkForm);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == "update") this.workStore.loadWorks();
+    });
   }
 
 }
