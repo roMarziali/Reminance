@@ -8,23 +8,31 @@ module.exports = class WorkManager {
   static async getWorks() {
     try {
       const data = fs.readFileSync(WORKS_FILE_PATH, 'utf8');
-      const json = JSON.parse(data);
-      // Générer date de dernière session et trier à partir d'elle.
-      return json;
+      const works = JSON.parse(data);
+
+      return works.map(work => {
+        const moods = [
+          ...new Set(
+            work.sessions.flatMap(session => session.moods ?? [])
+          )
+        ];
+
+        const lastSessionDate = work.sessions.reduce((latestDate, session) => {
+          if (!latestDate) return session.date;
+
+          return new Date(session.date) > new Date(latestDate)
+            ? session.date
+            : latestDate;
+        }, null);
+
+        return {
+          ...work,
+          moods,
+          lastSessionDate
+        };
+      });
     } catch (err) {
       return [];
     }
   }
 };
-
-function getNextIdForElement(parent) {
-  //Find the next available id for an element
-  let id = parent.length + 1;
-  for (const element of parent) {
-    if (element.id >= id) {
-      id = element.id + 1;
-    }
-  }
-  return id;
-}
-
