@@ -104,7 +104,13 @@ export class WorkStoreService {
     })
   }
 
-  removeWork(workId:number){
+  editWork(formValue: any, workId: number) {
+    this.http.put(`${environment.apiUrl}/api/works/work/${workId}`, formValue).subscribe({
+      next: res => this.loadWorks()
+    })
+  }
+
+  removeWork(workId: number) {
     this.http.delete(`${environment.apiUrl}/api/works/work/${workId}`).subscribe({
       next: res => this.loadWorks()
     })

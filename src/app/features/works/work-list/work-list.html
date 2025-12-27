@@ -61,7 +61,7 @@
             }
             @if(columnsInfo[column].type == "actions"){
             <div class="action-button-container">
-              <button matIconButton (click)="edit(element.id)">
+              <button matIconButton (click)="openWorkForm('edit', element.id)">
                 <mat-icon>edit</mat-icon>
               </button>
               <button matIconButton (click)="remove(element.id)">
@@ -117,6 +117,6 @@
 
   </mat-card-content>
   <mat-card-actions>
-    <button matButton="outlined" (click)="openWorkForm()">Ajouter</button>
+    <button matButton="outlined" (click)="openWorkForm('creation')">Ajouter</button>
   </mat-card-actions>
 </mat-card>

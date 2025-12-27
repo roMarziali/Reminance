@@ -104,17 +104,14 @@ export class WorkList {
     this.workStore.reduceAll();
   }
 
-  openWorkForm() {
+  openWorkForm(action: "creation" | "edit", workId?: number) {
     const dialogRef = this.dialog.open(WorkForm, {
-      disableClose: true
+      disableClose: true,
+      data: { action, workId },
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result == "update") this.workStore.loadWorks();
     });
-  }
-
-  edit(id: number) {
-
   }
 
   remove(id: number) {

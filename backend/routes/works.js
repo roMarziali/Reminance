@@ -14,6 +14,12 @@ router.post("/work", checkAuth, async (req, res, next) => {
   res.send(true);
 });
 
+router.put("/work/:workId", checkAuth, async (req, res, next) => {
+  const workId = req.params.workId;
+  await WorkManager.editWork(workId, req.body);
+  res.send(true);
+});
+
 router.delete("/work/:workId", checkAuth, async (req, res, next) => {
   const workId = req.params.workId;
   await WorkManager.deleteWork(workId);

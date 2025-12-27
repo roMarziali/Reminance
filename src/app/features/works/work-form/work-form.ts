@@ -1,4 +1,4 @@
-import { Component, inject, ChangeDetectionStrategy, computed, Signal, signal } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy, computed, Signal, signal, Inject } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatFormField, MatInputModule } from "@angular/material/input";
 import { MatDialogContent, MatDialogActions, MatDialogTitle, MatDialogClose, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
@@ -45,9 +45,41 @@ const ISO_DATE_REGEX = /^(\d{4})(-(0[1-9]|1[0-2]))?(-(0[1-9]|[12]\d|3[01]))?$/;
 export class WorkForm {
 
 
-  constructor(public workStore: WorkStoreService) { }
+  constructor(public workStore: WorkStoreService, @Inject(MAT_DIALOG_DATA) public data: { action: "creation" | "edit", workId?: number }) {
+    this.action = data.action;
+    this.workId = (data.workId) ? data.workId : 0;
+    if (this.workId) {
+      const relatedWork = this.workStore.works().find((work) => work.id == this.workId);
+      if (!relatedWork) {
+        alert("Erreur ! Work introuvable !");
+        return;
+      }
+      // Champs simples
+      this.form.patchValue({
+        title: relatedWork.title ?? '',
+        releaseDate: relatedWork.releaseDate ?? ''
+      });
+
+      // FormArray
+      this.setFormArray('titleAlias', relatedWork.titleAlias);
+      this.setFormArray('type', relatedWork.type);
+      this.setFormArray('licenses', relatedWork.licenses);
+      this.setFormArray('artists', relatedWork.artists);
+      this.setFormArray('publishers', relatedWork.publishers);
+      this.setFormArray('genres', relatedWork.genres);
+      this.setFormArray('countries', relatedWork.countries);
+    }
+  }
+
+  private setFormArray(controlName: string, values: string[] = []) {
+    const formArray = this.form.get(controlName) as FormArray;
+    formArray.clear();
+    values.forEach(v => formArray.push(this.formBuilder.control(v)));
+  }
 
   readonly dialogRef = inject(MatDialogRef<WorkForm>);
+  readonly action: "creation" | "edit";
+  readonly workId: number;
 
   public fields: WorkFormField[] = [
     { name: "title", label: "Titre", type: "string" },
@@ -132,7 +164,8 @@ export class WorkForm {
 
   submit() {
     if (this.form.invalid) return;
-    this.workStore.addWork(this.form.value);
+    if (this.action == "creation") this.workStore.addWork(this.form.value);
+    if (this.action == "edit") this.workStore.editWork(this.form.value, this.workId);
     this.dialogRef.close("update");
   }
 

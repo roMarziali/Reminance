@@ -52,4 +52,23 @@ module.exports = class WorkManager {
     const newWorks = works.filter(work => work.id !== Number(workId));
     fs.writeFileSync(WORKS_FILE_PATH, JSON.stringify(newWorks, null, 2), 'utf-8');
   }
+
+  static async editWork(workId, updatedWork) {
+    const data = fs.readFileSync(WORKS_FILE_PATH, 'utf8');
+    const works = JSON.parse(data);
+    const index = works.findIndex(work => work.id === Number(workId));
+
+    if (index === -1) throw new Error(`Aucun work trouvé avec l'id ${workId}`);
+
+    works[index] = {
+      ...works[index],
+      ...updatedWork,
+      id: works[index].id,          // sécurité : on ne touche pas à l'id
+      sessions: works[index].sessions // sécurité : on ne touche pas aux sessions
+    };
+
+    fs.writeFileSync(WORKS_FILE_PATH, JSON.stringify(works, null, 2), 'utf-8');
+
+    return works[index];
+  }
 };
