@@ -26,5 +26,25 @@ router.delete("/work/:workId", checkAuth, async (req, res, next) => {
   res.send(true);
 });
 
+router.post("/session/:workId", checkAuth, async (req, res, next) => {
+  const workId = req.params.workId;
+  await WorkManager.addSession(workId, req.body);
+  res.send(true);
+});
+
+router.put("/session/:workId/:sessionId", checkAuth, async (req, res, next) => {
+  const workId = req.params.workId;
+  const sessionId = req.params.sessionId;
+  await WorkManager.editSession(workId, sessionId, req.body);
+  res.send(true);
+});
+
+router.delete("/session/:workId/:sessionId", checkAuth, async (req, res, next) => {
+  const workId = req.params.workId;
+  const sessionId = req.params.sessionId;
+  await WorkManager.deleteSession(workId, sessionId);
+  res.send(true);
+});
+
 
 module.exports = router;
