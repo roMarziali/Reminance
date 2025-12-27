@@ -89,12 +89,19 @@
               [class.example-element-detail-wrapper-expanded]="isExpanded(element)">
               <div class="example-element-detail">
                 <div class="expanded-content">
-                  @for(session of element.sessions; track session.id){
-                  <app-session-list [session]="session"></app-session-list>
-                  }
-                  @if(!element.sessions || !element.sessions.length){
-                  Vous n'avez encore rien écrit au sujet de cette oeuvre
-                  }
+                  <div>
+                    @for(session of element.sessions; track session.id){
+                    <app-session-list [session]="session"></app-session-list>
+                    }
+                    @if(!element.sessions || !element.sessions.length){
+                    Vous n'avez encore rien écrit au sujet de cette oeuvre
+                    }
+                  </div>
+                  <div>
+                    <button matIconButton (click)="addSession(element.id)">
+                      <mat-icon>add</mat-icon>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

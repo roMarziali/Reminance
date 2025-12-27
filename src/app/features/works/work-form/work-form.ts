@@ -1,4 +1,4 @@
-import { Component, inject, ChangeDetectionStrategy, computed, Signal, signal, Inject } from '@angular/core';
+import { Component, inject, computed, Signal, signal, Inject } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatFormField, MatInputModule } from "@angular/material/input";
 import { MatDialogContent, MatDialogActions, MatDialogTitle, MatDialogClose, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
@@ -19,8 +19,6 @@ export interface WorkFormField {
 }
 
 export type FieldChips = "type" | "licenses" | "artists" | "publishers" | "genres" | "countries";
-const ISO_DATE_REGEX = /^(\d{4})(-(0[1-9]|1[0-2]))?(-(0[1-9]|[12]\d|3[01]))?$/;
-
 
 @Component({
   selector: 'app-work-form',
@@ -40,10 +38,8 @@ const ISO_DATE_REGEX = /^(\d{4})(-(0[1-9]|1[0-2]))?(-(0[1-9]|[12]\d|3[01]))?$/;
   ],
   templateUrl: './work-form.html',
   styleUrl: './work-form.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WorkForm {
-
 
   constructor(public workStore: WorkStoreService, @Inject(MAT_DIALOG_DATA) public data: { action: "creation" | "edit", workId?: number }) {
     this.action = data.action;

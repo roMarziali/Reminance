@@ -15,6 +15,7 @@ import { WorkChips } from './work-chips/work-chips';
 import { MatChipsModule } from "@angular/material/chips";
 import { WorkForm } from '../work-form/work-form';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { SessionForm } from '../session-form/session-form';
 
 export type ColumnInfo = {
   label: string;
@@ -117,6 +118,16 @@ export class WorkList {
   remove(id: number) {
     if (!confirm("Confirmer la suppression")) return;
     this.workStore.removeWork(id);
+  }
+
+  addSession(workId: number) {
+    const dialogRef = this.dialog.open(SessionForm, {
+      disableClose: true,
+      data: { action: "creation", workId },
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == "update") this.workStore.loadWorks();
+    });
   }
 
 }

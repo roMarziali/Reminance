@@ -1,0 +1,58 @@
+<h2 mat-dialog-title>Ajouter une session</h2>
+
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <mat-dialog-content class="mat-typography">
+
+    @for(field of fields; track $index){
+    <div>
+      @if (field.type == "string" || field.type == "date"){
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{field.label}}</mat-label>
+        <input matInput [formControlName]="field.name" />
+      </mat-form-field>
+      }
+
+      @if (field.type == "chips"){
+      <mat-form-field appearance="outline">
+        <mat-label>{{field.label}}</mat-label>
+
+        <mat-chip-grid #chipGrid>
+          @for (control of getField(field.name).controls; track $index){
+          <mat-chip-row (removed)="removeChipsValue($index, field.name)">
+            {{ control.value }}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+          }
+        </mat-chip-grid>
+
+        <input [matChipInputFor]="chipGrid" [matChipInputSeparatorKeyCodes]="[13, 188]" #chipsInput
+          [matAutocomplete]="auto"
+          (matChipInputTokenEnd)="addChipsValue($event.value, field.name); chipsInput.value = ''" />
+
+
+        <mat-autocomplete #auto="matAutocomplete"
+          (optionSelected)="selected($event, field.name); chipsInput.value = ''">
+          @for (string of getFilteredSuggestions(field.name) ; track string) {
+          <mat-option [value]="string">{{string}}</mat-option>
+          }
+        </mat-autocomplete>
+
+        @if (getField(field.name).length === 0){
+        <mat-hint>Actuellement vide</mat-hint>
+        }
+      </mat-form-field>
+      }
+    </div>
+    }
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+      Enregistrer
+    </button>
+    <button mat-dialog-close matButton>Annuler</button>
+  </mat-dialog-actions>
+</form>
