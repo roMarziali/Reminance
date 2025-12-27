@@ -5,7 +5,7 @@
   <mat-card-content>
 
 
-    <section aria-labelledby="filters-title">
+    <section aria-labelledby="filters-title" id="filters">
       <h3 id="filters-title">Filtres</h3>
       <mat-form-field>
         <mat-label>Filtre</mat-label>
@@ -36,6 +36,7 @@
       <h3 id="table-title">Résultats</h3>
 
       <mat-card-actions>
+        <button matButton="tonal" (click)="openWorkForm('creation')">Ajouter</button>
         <button matButton="outlined" (click)="expandAll()">Étendre tout</button>
         <button matButton="outlined" (click)="reduceAll()">Réduire tout</button>
       </mat-card-actions>
@@ -130,7 +131,4 @@
     </section>
 
   </mat-card-content>
-  <mat-card-actions>
-    <button matButton="outlined" (click)="openWorkForm('creation')">Ajouter</button>
-  </mat-card-actions>
 </mat-card>
