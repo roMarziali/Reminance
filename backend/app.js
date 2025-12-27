@@ -24,10 +24,10 @@ app.use((req, res, next) => {
 app.use("/api/works", works);
 app.use("/api/auth", auth);
 
-app.use(express.static(__dirname + '/browser/angular'));
+app.use(express.static(__dirname + '/angular/browser'));
 
 app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, "browser/angular", "index.html"));
+  res.sendFile(path.join(__dirname, "angular/browser", "index.html"));
 })
 
 
