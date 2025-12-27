@@ -18,7 +18,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 export type ColumnInfo = {
   label: string;
-  type: 'titleFunction' | 'chipModule' | 'datePipe';
+  type: 'titleFunction' | 'chipModule' | 'datePipe' | 'actions';
 };
 
 @Component({
@@ -40,53 +40,23 @@ export class WorkList {
     });
   }
 
-  columnsToDisplay: string[] = ['title', 'licenses', 'type', 'releaseDate', 'genres', 'artists', 'publishers', 'countries', 'lastSessionDate', 'moods'];
+  columnsToDisplay: string[] = ['title', 'licenses', 'type', 'releaseDate', 'genres', 'artists', 'publishers', 'countries', 'lastSessionDate', 'moods', 'actions'];
   columnsToDisplayWithExpand: string[] = [...this.columnsToDisplay, 'expand'];
   expandedElement!: Work | null;
 
-
   columnsInfo: Record<string, ColumnInfo> = {
-    title: {
-      label: "Titre",
-      type: "titleFunction"
-    },
-    licenses: {
-      label: "Série",
-      type: "chipModule",
-    },
-    type: {
-      label: "Media",
-      type: "chipModule",
-    },
-    releaseDate: {
-      label: "Date de sortie",
-      type: "datePipe",
-    },
-    genres: {
-      label: "Genres, thèmes",
-      type: "chipModule",
-    },
-    artists: {
-      label: "Artistes",
-      type: "chipModule",
-    },
-    publishers: {
-      label: "Éditeurs",
-      type: "chipModule",
-    },
-    countries: {
-      label: "Pays",
-      type: "chipModule",
-    },
-    lastSessionDate: {
-      label: "Dernière session",
-      type: "datePipe",
-    },
-    moods: {
-      label: "Ressentis",
-      type: "chipModule",
-    }
-  }
+    title: { label: "Titre", type: "titleFunction" },
+    licenses: { label: "Série", type: "chipModule" },
+    type: { label: "Media", type: "chipModule" },
+    releaseDate: { label: "Date de sortie", type: "datePipe" },
+    genres: { label: "Genres, thèmes", type: "chipModule" },
+    artists: { label: "Artistes", type: "chipModule" },
+    publishers: { label: "Éditeurs", type: "chipModule" },
+    countries: { label: "Pays", type: "chipModule" },
+    lastSessionDate: { label: "Dernière session", type: "datePipe" },
+    moods: { label: "Ressentis", type: "chipModule" },
+    actions: { label: "", type: "actions" }
+  };
 
   isExpanded(element: Work) {
     return element.expanded;
@@ -141,6 +111,15 @@ export class WorkList {
     dialogRef.afterClosed().subscribe(result => {
       if (result == "update") this.workStore.loadWorks();
     });
+  }
+
+  edit(id: number) {
+
+  }
+
+  remove(id: number) {
+    if (!confirm("Confirmer la suppression")) return;
+    console.log("removing");
   }
 
 }

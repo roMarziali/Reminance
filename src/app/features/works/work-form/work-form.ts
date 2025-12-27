@@ -52,7 +52,7 @@ export class WorkForm {
   public fields: WorkFormField[] = [
     { name: "title", label: "Titre", type: "string" },
     { name: "titleAlias", label: "Alias", type: "chips" },
-    { name: "type", label: "Type", type: "chips", suggestFromPrevious: true },
+    { name: "type", label: "Media", type: "chips", suggestFromPrevious: true },
     { name: "licenses", label: "Série", type: "chips", suggestFromPrevious: true },
     { name: "artists", label: "Artistes", type: "chips", suggestFromPrevious: true },
     { name: "publishers", label: "Éditeurs", type: "chips", suggestFromPrevious: true },

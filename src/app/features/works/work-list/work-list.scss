@@ -69,3 +69,10 @@ mat-card-actions {
     margin-right: 1rem;
   }
 }
+
+.action-button-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width : 80px;
+}

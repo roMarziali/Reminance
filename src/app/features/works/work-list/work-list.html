@@ -59,6 +59,17 @@
             @if(columnsInfo[column].type == "datePipe"){
             {{element[column] |partialDate}}
             }
+            @if(columnsInfo[column].type == "actions"){
+            <div class="action-button-container">
+              <button matIconButton (click)="edit(element.id)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button matIconButton (click)="remove(element.id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+
+            }
           </td>
         </ng-container>
         }
