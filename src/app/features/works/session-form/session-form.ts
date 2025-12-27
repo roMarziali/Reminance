@@ -60,10 +60,10 @@ export class SessionForm {
     { name: "endedPrecision", label: "Précision sur la fin", type: "string" }
   ];
 
-  endedOptions  = [
-    {value: 'Y', viewValue: 'Oui'},
-    {value: 'N', viewValue: 'Non'},
-    {value: 'Ongoing', viewValue: 'En cours'},
+  endedOptions = [
+    { value: 'Y', viewValue: 'Oui' },
+    { value: 'N', viewValue: 'Non' },
+    { value: 'Ongoing', viewValue: 'En cours' },
   ];
 
   private formBuilder = inject(FormBuilder);

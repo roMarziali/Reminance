@@ -23,7 +23,7 @@
       @if (field.type == "options"){
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>{{field.label}}</mat-label>
-        <mat-select formControlName]="field.name">
+        <mat-select [formControlName]="field.name">
           @for (endedOption of endedOptions; track endedOption) {
           <mat-option [value]="endedOption.value">{{endedOption.viewValue}}</mat-option>
           }
