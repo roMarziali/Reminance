@@ -63,7 +63,7 @@
               <button matIconButton (click)="openWorkForm('edit', element.id)">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button matIconButton (click)="remove(element.id)">
+              <button matIconButton (click)="removeWork(element.id)">
                 <mat-icon>delete</mat-icon>
               </button>
             </div>
@@ -91,13 +91,21 @@
                   <div>
                     @for(session of element.sessions; track session.id){
                     <app-session-list [session]="session"></app-session-list>
+                    <div class="action-button-container">
+                      <button matIconButton (click)="openSessionForm('edit', element.id, session.id)">
+                        <mat-icon>edit</mat-icon>
+                      </button>
+                      <button matIconButton (click)="removeSession(element.id, session.id)">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                    </div>
                     }
                     @if(!element.sessions || !element.sessions.length){
                     Vous n'avez encore rien écrit au sujet de cette oeuvre
                     }
                   </div>
                   <div>
-                    <button matIconButton (click)="addSession(element.id)">
+                    <button matIconButton (click)="openSessionForm('creation', element.id)">
                       <mat-icon>add</mat-icon>
                     </button>
                   </div>

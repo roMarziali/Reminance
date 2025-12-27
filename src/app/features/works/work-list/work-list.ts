@@ -115,19 +115,25 @@ export class WorkList {
     });
   }
 
-  remove(id: number) {
+  removeWork(workId: number) {
     if (!confirm("Confirmer la suppression")) return;
-    this.workStore.removeWork(id);
+    this.workStore.removeWork(workId);
   }
 
-  addSession(workId: number) {
+  openSessionForm(action: "creation" | "edit", workId: number, sessionId?: number) {
     const dialogRef = this.dialog.open(SessionForm, {
       disableClose: true,
-      data: { action: "creation", workId },
+      data: { action, workId, sessionId },
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result == "update") this.workStore.loadWorks();
     });
   }
+
+  removeSession(workId: number, sessionId: number) {
+    if (!confirm("Confirmer la suppression")) return;
+    this.workStore.removeSession(workId, sessionId);
+  }
+
 
 }

@@ -129,7 +129,7 @@ export class WorkStoreService {
   }
 
   removeSession(workId: number, sessionId: number) {
-    this.http.delete(`${environment.apiUrl}/api/works/delete/${workId}/${sessionId}`).subscribe({
+    this.http.delete(`${environment.apiUrl}/api/works/session/${workId}/${sessionId}`).subscribe({
       next: res => this.loadWorks()
     })
   }
