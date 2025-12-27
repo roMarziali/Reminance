@@ -24,7 +24,7 @@ app.use((req, res, next) => {
 app.use("/api/works", works);
 app.use("/api/auth", auth);
 
-app.use(express.static(__dirname + '/angular'));
+app.use(express.static(__dirname + '/browser/angular'));
 
 app.use((req, res, next) => {
   res.sendFile(path.join(__dirname, "angular", "index.html"));
