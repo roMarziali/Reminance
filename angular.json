@@ -36,7 +36,8 @@
             "outputMode": "server",
             "ssr": {
               "entry": "src/server.ts"
-            }
+            },
+            "outputPath" : "./backend/angular"
           },
           "configurations": {
             "production": {
