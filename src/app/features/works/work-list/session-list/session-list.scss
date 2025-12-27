@@ -1,6 +1,7 @@
 .session-content {
   margin-bottom: 1rem;
   display: flex;
+  justify-content: space-between;
 }
 
 .session-date {
@@ -12,7 +13,7 @@
 }
 
 .session-metadata {
-  min-width: 15%;
+  width: 250px;
 }
 
 .session-section {
@@ -27,11 +28,11 @@
 
 .session-comment {
   text-align: justify;
-  min-width: 100%;
+  width : 100%;
 }
 
 .session-moods {
-  min-width: 15%;
+  width: 250px;
 }
 
 .moods-prefix {
