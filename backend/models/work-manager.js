@@ -45,4 +45,11 @@ module.exports = class WorkManager {
     works.push(work);
     fs.writeFileSync(WORKS_FILE_PATH, JSON.stringify(works, null, 2), 'utf-8');
   }
+
+  static async deleteWork(workId) {
+    const data = fs.readFileSync(WORKS_FILE_PATH, 'utf8');
+    const works = JSON.parse(data);
+    const newWorks = works.filter(work => work.id !== Number(workId));
+    fs.writeFileSync(WORKS_FILE_PATH, JSON.stringify(newWorks, null, 2), 'utf-8');
+  }
 };

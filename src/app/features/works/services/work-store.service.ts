@@ -104,21 +104,9 @@ export class WorkStoreService {
     })
   }
 
-  //test toremove
-  // add(){
-  //   this._works.update( works => [
-  //     ... works, {
-  //       id: 2,
-  //       title: "Earthbound",
-  //       titleAlias: ["Mother"],
-  //       type: "Jeu vidéo",
-  //       licenses: ["Final Fantasy"],
-  //       genres: ["JRPG", "Science-fiction"],
-  //       artists: ["Shigesato Itoi", "Yoshitaka Amano", "Hironobu Sakaguchi", "Nobuo Uematsu", "Yoshinori Kitase"],
-  //       publishers: ["SquareEnix", "Squaresoft"],
-  //       releaseDate: "1998",
-  //       lastSessionDate: "2022",
-  //       moods: ["Génial", "Pouet !"]
-  //     }]);
-  // }
+  removeWork(workId:number){
+    this.http.delete(`${environment.apiUrl}/api/works/work/${workId}`).subscribe({
+      next: res => this.loadWorks()
+    })
+  }
 }

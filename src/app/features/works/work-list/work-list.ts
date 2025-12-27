@@ -119,7 +119,7 @@ export class WorkList {
 
   remove(id: number) {
     if (!confirm("Confirmer la suppression")) return;
-    console.log("removing");
+    this.workStore.removeWork(id);
   }
 
 }
