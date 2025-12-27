@@ -81,11 +81,6 @@ export class SessionForm {
     ];
   });
 
-  readonly fieldValues: Record<string, Signal<string>> = this.fields.reduce((acc, field) => {
-    acc[field.name] = signal(this.form.get(field.name)?.value || '');
-    return acc;
-  }, {} as Record<string, Signal<string>>);
-
   getField(fieldName: string): FormArray<FormControl<string>> {
     return this.form.get(fieldName) as FormArray<FormControl<string>>;
   }
