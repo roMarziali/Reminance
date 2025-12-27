@@ -44,6 +44,43 @@ export class SessionForm {
     this.action = data.action;
     this.workId = data.workId;
     this.sessionId = (data.sessionId) ? data.sessionId : 0;
+
+    if (this.sessionId) {
+      const relatedWork = this.workStore
+        .works()
+        .find(work => work.id === this.workId);
+
+      if (!relatedWork) {
+        alert('Erreur ! Work introuvable !');
+        return;
+      }
+
+      const relatedSession = relatedWork.sessions?.find(
+        session => session.id === this.sessionId
+      );
+
+      if (!relatedSession) {
+        alert('Erreur ! Session introuvable !');
+        return;
+      }
+
+      this.form.patchValue({
+        date: relatedSession.date ?? '',
+        modalities: relatedSession.modalities ?? '',
+        comment: relatedSession.comment ?? '',
+        ended: relatedSession.ended ?? '',
+        endedPrecision: relatedSession.endedPrecision ?? ''
+      });
+
+      // FormArray (chips)
+      this.setFormArray('moods', relatedSession.moods);
+    }
+  }
+
+  private setFormArray(controlName: string, values: string[] = []) {
+    const formArray = this.form.get(controlName) as FormArray;
+    formArray.clear();
+    values.forEach(v => formArray.push(this.formBuilder.control(v)));
   }
 
   readonly dialogRef = inject(MatDialogRef<SessionForm>);
