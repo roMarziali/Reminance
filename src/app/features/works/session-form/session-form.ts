@@ -7,7 +7,7 @@ import { MatChipGrid, MatChipsModule } from "@angular/material/chips";
 import { MatIcon } from "@angular/material/icon";
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { WorkStoreService } from '../services/work-store.service';
-import { Work } from '../../../core/models/work.model';
+import { MatSelectModule } from '@angular/material/select';
 import { isoDateValidator } from '../../../validators/iso-date.validator';
 
 
@@ -31,7 +31,8 @@ export interface WorkFormField {
     MatDialogClose,
     MatChipGrid,
     MatChipsModule,
-    MatIcon
+    MatIcon,
+    MatSelectModule
   ],
   templateUrl: './session-form.html',
   styleUrl: './session-form.scss',
@@ -57,6 +58,12 @@ export class SessionForm {
     { name: "moods", label: "Ressentis", type: "chips" },
     { name: "ended", label: "Terminé", type: "options" },
     { name: "endedPrecision", label: "Précision sur la fin", type: "string" }
+  ];
+
+  endedOptions  = [
+    {value: 'Y', viewValue: 'Oui'},
+    {value: 'N', viewValue: 'Non'},
+    {value: 'Ongoing', viewValue: 'En cours'},
   ];
 
   private formBuilder = inject(FormBuilder);
@@ -104,8 +111,8 @@ export class SessionForm {
 
   submit() {
     if (this.form.invalid) return;
-    if (this.action == "creation") this.workStore.addWork(this.form.value);
-    if (this.action == "edit") this.workStore.editWork(this.form.value, this.workId);
+    if (this.action == "creation") this.workStore.addSession(this.form.value, this.workId);
+    if (this.action == "edit") this.workStore.editSession(this.form.value, this.workId, this.sessionId);
     this.dialogRef.close("update");
   }
 

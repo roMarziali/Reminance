@@ -12,6 +12,25 @@
       </mat-form-field>
       }
 
+      @if (field.type == "comment"){
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{field.label}}</mat-label>
+        <textarea [formControlName]="field.name" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+          cdkAutosizeMinRows="5"></textarea>
+      </mat-form-field>
+      }
+
+      @if (field.type == "options"){
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{field.label}}</mat-label>
+        <mat-select formControlName]="field.name">
+          @for (endedOption of endedOptions; track endedOption) {
+          <mat-option [value]="endedOption.value">{{endedOption.viewValue}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      }
+
       @if (field.type == "chips"){
       <mat-form-field appearance="outline">
         <mat-label>{{field.label}}</mat-label>
@@ -34,7 +53,7 @@
 
         <mat-autocomplete #auto="matAutocomplete"
           (optionSelected)="selected($event, field.name); chipsInput.value = ''">
-          @for (string of getFilteredSuggestions(field.name) ; track string) {
+          @for (string of getFilteredSuggestions(chipsInput.value) ; track string) {
           <mat-option [value]="string">{{string}}</mat-option>
           }
         </mat-autocomplete>

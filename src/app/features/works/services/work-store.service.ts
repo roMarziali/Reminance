@@ -115,4 +115,22 @@ export class WorkStoreService {
       next: res => this.loadWorks()
     })
   }
+
+  addSession(formValue: any, workId: number) {
+    this.http.post(`${environment.apiUrl}/api/works/session/${workId}`, formValue).subscribe({
+      next: res => this.loadWorks()
+    })
+  }
+
+  editSession(formValue: any, workId: number, sessionId: number) {
+    this.http.put(`${environment.apiUrl}/api/works/session/${workId}/${sessionId}`, formValue).subscribe({
+      next: res => this.loadWorks()
+    })
+  }
+
+  removeSession(workId: number, sessionId: number) {
+    this.http.delete(`${environment.apiUrl}/api/works/delete/${workId}/${sessionId}`).subscribe({
+      next: res => this.loadWorks()
+    })
+  }
 }
