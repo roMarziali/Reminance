@@ -47,7 +47,7 @@ export class WorkList {
 
   columnsInfo: Record<string, ColumnInfo> = {
     title: { label: "Titre", type: "titleFunction" },
-    licenses: { label: "Série", type: "chipModule" },
+    licenses: { label: "Franchise", type: "chipModule" },
     type: { label: "Media", type: "chipModule" },
     releaseDate: { label: "Date de sortie", type: "datePipe" },
     genres: { label: "Genres, thèmes", type: "chipModule" },
