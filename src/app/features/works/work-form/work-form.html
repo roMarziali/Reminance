@@ -31,7 +31,7 @@
         </mat-chip-grid>
 
         <input [matChipInputFor]="chipGrid" [matChipInputSeparatorKeyCodes]="[13, 188]" #chipsInput
-          [matAutocomplete]="auto"
+          [matAutocomplete]="auto" [matChipInputAddOnBlur]="true"
           (matChipInputTokenEnd)="addChipsValue($event.value, field.name); chipsInput.value = ''" />
 
 
@@ -42,9 +42,6 @@
           }
         </mat-autocomplete>
 
-        @if (getField(field.name).length === 0 && field.suggestFromPrevious){
-        <mat-hint>Actuellement vide</mat-hint>
-        }
       </mat-form-field>
       }
     </div>

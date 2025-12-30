@@ -13,11 +13,12 @@
       }
 
       @if (field.type == "comment"){
-      <mat-form-field appearance="outline" class="full-width" class = "mat-form-field-textarea">
+      <mat-form-field appearance="outline" class="full-width" class="mat-form-field-textarea">
         <mat-label>{{field.label}}</mat-label>
         <textarea [formControlName]="field.name" matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize"
           cdkAutosizeMinRows="5"></textarea>
-          <mat-hint>Aucune idée ? Évoquer une scène marquante, un personnage attachant, la prestation d'un acteur...</mat-hint>
+        <mat-hint>Aucune idée ? Évoquer une scène marquante, un personnage attachant, la prestation d'un
+          acteur...</mat-hint>
       </mat-form-field>
       }
 
@@ -48,7 +49,7 @@
         </mat-chip-grid>
 
         <input [matChipInputFor]="chipGrid" [matChipInputSeparatorKeyCodes]="[13, 188]" #chipsInput
-          [matAutocomplete]="auto"
+          [matAutocomplete]="auto" [matChipInputAddOnBlur]="true"
           (matChipInputTokenEnd)="addChipsValue($event.value, field.name); chipsInput.value = ''" />
 
 
