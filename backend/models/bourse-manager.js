@@ -33,20 +33,23 @@ function computeStock(symbol, referenceName, sparkResponse) {
   }
 
   const meta = sparkResponse.meta ?? {};
+  // meta.chartPreviousClose n'est PAS la clôture de la veille : c'est la clôture du jour précédant le
+  // début de la période "range" demandée (donc vieille d'un mois avec range=1mo). On calcule les variations
+  // à partir de l'historique des clôtures quotidiennes, qui lui est fiable.
   const closes = (sparkResponse.indicators?.quote?.[0]?.close ?? []).filter(c => c != null);
 
   const currentPrice = meta.regularMarketPrice ?? null;
-  const previousClose = meta.chartPreviousClose ?? null;
+
+  const previousClose = closes.length >= 2 ? closes[closes.length - 2] : null;
   const dayChangePercent = (currentPrice != null && previousClose)
     ? ((currentPrice - previousClose) / previousClose) * 100
     : null;
 
   let fiveDayChangePercent = null;
-  if (closes.length >= 2) {
+  if (currentPrice != null && closes.length >= 2) {
     const baselineIndex = Math.max(0, closes.length - 1 - 5);
     const baseline = closes[baselineIndex];
-    const latest = closes[closes.length - 1];
-    if (baseline) fiveDayChangePercent = ((latest - baseline) / baseline) * 100;
+    if (baseline) fiveDayChangePercent = ((currentPrice - baseline) / baseline) * 100;
   }
 
   const name = meta.longName || meta.shortName || referenceName || symbol;
