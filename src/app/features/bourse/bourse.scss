@@ -1,3 +1,14 @@
+.add-watched-form {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 16px 16px 0;
+
+  .watched-error {
+    color: #c62828;
+  }
+}
+
 .bourse-container {
   display: flex;
   flex-wrap: wrap;

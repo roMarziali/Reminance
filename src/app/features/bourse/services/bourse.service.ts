@@ -16,4 +16,16 @@ export class BourseService {
   getSp500(): Observable<Stock[]> {
     return this.http.get<Stock[]>(`${environment.apiUrl}/api/bourse/sp-500`);
   }
+
+  getWatched(): Observable<Stock[]> {
+    return this.http.get<Stock[]>(`${environment.apiUrl}/api/bourse/watched`);
+  }
+
+  addWatched(query: string): Observable<Stock> {
+    return this.http.post<Stock>(`${environment.apiUrl}/api/bourse/watched`, { query });
+  }
+
+  removeWatched(symbol: string): Observable<void> {
+    return this.http.delete<void>(`${environment.apiUrl}/api/bourse/watched/${encodeURIComponent(symbol)}`);
+  }
 }

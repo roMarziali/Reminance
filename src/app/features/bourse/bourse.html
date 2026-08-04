@@ -1,6 +1,17 @@
+<form class="add-watched-form" (ngSubmit)="addWatchedStock()">
+  <mat-form-field>
+    <mat-label>Ajouter une action suivie (nom ou symbole)</mat-label>
+    <input matInput [(ngModel)]="watchedQuery" name="watchedQuery" placeholder="Ubisoft, UBI.PA...">
+  </mat-form-field>
+  <button matButton="tonal" type="submit">Ajouter</button>
+  @if (watchedError()) {
+  <span class="watched-error">{{ watchedError() }}</span>
+  }
+</form>
+
 <div class="bourse-container">
-  <app-stock-table title="Actions suivies" [stocks]="watchedStocks()"
-    emptyMessage="Aucune action suivie pour le moment"></app-stock-table>
+  <app-stock-table title="Actions suivies" [stocks]="watchedStocks()" [loading]="loadingWatched()" [removable]="true"
+    emptyMessage="Aucune action suivie pour le moment" (remove)="removeWatchedStock($event)"></app-stock-table>
 
   <app-stock-table title="CAC Large 60" [stocks]="cacLarge60()" [loading]="loadingCac()"
     emptyMessage="Impossible de charger les données"></app-stock-table>
