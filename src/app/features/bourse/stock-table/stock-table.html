@@ -1,0 +1,52 @@
+<mat-card appearance="outlined" class="stock-table-card">
+  <mat-card-header>
+    <mat-card-title>{{ title }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+
+    @if (loading) {
+    <div class="loading">
+      <mat-spinner diameter="32"></mat-spinner>
+    </div>
+    } @else if (!stocks.length) {
+    <p class="empty-message">{{ emptyMessage }}</p>
+    } @else {
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Nom</th>
+        <td mat-cell *matCellDef="let stock">{{ stock.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="dayChangePercent">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>% jour</th>
+        <td mat-cell *matCellDef="let stock" [class.positive]="(stock.dayChangePercent ?? 0) > 0"
+          [class.negative]="(stock.dayChangePercent ?? 0) < 0">
+          {{ stock.dayChangePercent != null ? (stock.dayChangePercent | number:'1.2-2') + ' %' : '—' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="fiveDayChangePercent">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>% 5 jours</th>
+        <td mat-cell *matCellDef="let stock" [class.positive]="(stock.fiveDayChangePercent ?? 0) > 0"
+          [class.negative]="(stock.fiveDayChangePercent ?? 0) < 0">
+          {{ stock.fiveDayChangePercent != null ? (stock.fiveDayChangePercent | number:'1.2-2') + ' %' : '—' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="link">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let stock">
+          <a [href]="googleSearchUrl(stock.name)" target="_blank" rel="noopener noreferrer" aria-label="Rechercher sur Google">
+            <mat-icon>search</mat-icon>
+          </a>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+    </table>
+    }
+
+  </mat-card-content>
+</mat-card>

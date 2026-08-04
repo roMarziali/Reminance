@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const app = express();
 const works = require("./routes/works");
 const auth = require("./routes/auth");
+const bourse = require("./routes/bourse");
 const path = require("path");
 
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -23,6 +24,7 @@ app.use((req, res, next) => {
 
 app.use("/api/works", works);
 app.use("/api/auth", auth);
+app.use("/api/bourse", bourse);
 
 app.use(express.static(__dirname + '/angular/browser'));
 

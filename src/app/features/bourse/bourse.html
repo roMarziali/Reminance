@@ -1,1 +1,10 @@
-<p>Page Bourse — à venir.</p>
+<div class="bourse-container">
+  <app-stock-table title="Actions suivies" [stocks]="watchedStocks()"
+    emptyMessage="Aucune action suivie pour le moment"></app-stock-table>
+
+  <app-stock-table title="CAC Large 60" [stocks]="cacLarge60()" [loading]="loadingCac()"
+    emptyMessage="Impossible de charger les données"></app-stock-table>
+
+  <app-stock-table title="S&P 500" [stocks]="sp500()" [loading]="loadingSp()"
+    emptyMessage="Impossible de charger les données"></app-stock-table>
+</div>
