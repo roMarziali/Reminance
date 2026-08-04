@@ -1,6 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth.service';
+import { AuthStore } from '../../../core/auth/auth.store';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -16,7 +18,11 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class Login {
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, authStore: AuthStore, router: Router) {
+    if (authStore.isAuthenticated()) {
+      router.navigate(['/menu']);
+    }
+  }
 
   private formBuilder = inject(FormBuilder)
   emailControl = new FormControl('');

@@ -1,0 +1,35 @@
+.menu-container {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.menu-card {
+  width: 220px;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+
+  &:hover {
+    transform: scale(1.03);
+  }
+
+  mat-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.2rem;
+
+    mat-icon {
+      font-size: 48px;
+      width: 48px;
+      height: 48px;
+    }
+  }
+}
