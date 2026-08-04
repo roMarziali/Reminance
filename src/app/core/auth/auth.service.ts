@@ -14,14 +14,14 @@ export class AuthService {
     private router: Router,
   ) { }
 
-  login(email: string, password: string) {
+  login(email: string, password: string, returnUrl?: string | null) {
     return this.http.post<AuthResponse>(
       `${environment.apiUrl}/api/auth/login`,
       { email, password }
     ).subscribe(res => {
       this.authStore.setAuth(res.user, res.accessToken);
       localStorage.setItem('token', res.accessToken);
-      this.router.navigate(['/menu']);
+      this.router.navigateByUrl(returnUrl || '/menu');
     });
   }
 

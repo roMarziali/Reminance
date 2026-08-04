@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth.service';
 import { AuthStore } from '../../../core/auth/auth.store';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,9 +18,10 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class Login {
 
-  constructor(private authService: AuthService, authStore: AuthStore, router: Router) {
+  constructor(private authService: AuthService, authStore: AuthStore, router: Router, private route: ActivatedRoute) {
     if (authStore.isAuthenticated()) {
-      router.navigate(['/menu']);
+      const returnUrl = route.snapshot.queryParamMap.get('returnUrl');
+      router.navigateByUrl(returnUrl || '/menu');
     }
   }
 
@@ -37,6 +38,7 @@ export class Login {
 
     const { email, password } = this.form.getRawValue();
     if (!email || !password) return;
-    this.authService.login(email, password);
+    const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+    this.authService.login(email, password, returnUrl);
   }
 }
