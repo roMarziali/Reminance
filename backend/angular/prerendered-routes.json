@@ -1,5 +1,8 @@
 {
   "routes": {
-    "/": {}
+    "/": {},
+    "/bourse": {},
+    "/menu": {},
+    "/reminance": {}
   }
 }
